@@ -1,9 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+
+using Microsoft.Data.Sqlite;
+using Microsoft.AspNetCore.Builder;
+
 using DeviceModel;
 using DeviceContext;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<DeviceDb>(opt => opt.UseInMemoryDatabase("Macs"));
+builder.Services.AddDbContext<DeviceDb>(opt => opt.UseSqlite("Data Source=paydb.db"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 var app = builder.Build();
 

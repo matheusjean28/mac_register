@@ -9,3 +9,4 @@ class DeviceDb : DbContext
 
     public DbSet<Device> Devices => Set<Device>();
 }
+
