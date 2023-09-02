@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 namespace ControllerUpload
 {
     [ApiController]
-    [Route("[upload]")]
+    [Route("upload")]
+
     public class UploadController : ControllerBase
     {
         public async Task<ActionResult> Upload([FromForm] ICollection<IFormFile> files)
@@ -15,7 +16,7 @@ namespace ControllerUpload
             {
                 return BadRequest();
             }
-            
+
             List<byte[]> data = new();
             foreach (var formFile in files)
             {
@@ -28,7 +29,7 @@ namespace ControllerUpload
                     }
                 }
             }
-            return Ok();
+            return File(data[0], files.FirstOrDefault().ContentType, "myfile.txt");
         }
     }
 }
