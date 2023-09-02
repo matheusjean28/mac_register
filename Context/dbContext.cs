@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using DeviceModel;
 namespace DeviceContext;
 
-class DeviceDb : DbContext
+public class DeviceDb : DbContext
 {
     public DeviceDb(DbContextOptions<DeviceDb> options)
         : base(options) { }

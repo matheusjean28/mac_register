@@ -32,4 +32,5 @@ app.MapPost("/mac", async (Device device, DeviceDb db) =>
     return Results.Created("/mac", device);
 });
 
+
 app.Run();

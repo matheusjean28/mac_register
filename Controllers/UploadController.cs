@@ -2,15 +2,25 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
+using DeviceContext;
 using System.Threading.Tasks;
+using DeviceModel;
 namespace ControllerUpload
 {
     [ApiController]
     [Route("upload")]
     public class UploadController : ControllerBase
     {
-    [HttpPost]
-        public async Task<ActionResult> Upload([FromForm] ICollection<IFormFile>? files )
+
+        private readonly DeviceDb _db;
+
+        public UploadController(DeviceDb db)
+        {
+            _db = db;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Upload([FromForm] ICollection<IFormFile>? files)
         {
             if (files == null || files.Count == 0)
             {
@@ -24,15 +34,15 @@ namespace ControllerUpload
                 {
                     using var stream = new MemoryStream();
                     await formFile.CopyToAsync(stream);
-                    data.Add(stream.ToArray());
+                    var device = new Device
+                    {
+                        Data = stream.ToArray()
+                    };
+                    _db.Devices.Add(device);
                 }
             }
-            if (data.Count > 0 && files.FirstOrDefault() != null)
-            {
-                return Ok();
-            }
-
-            return BadRequest("No valid files found.");
+            await _db.SaveChangesAsync();
+            return Ok($"Your file has been saved!");
         }
     }
 }
