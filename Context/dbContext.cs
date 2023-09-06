@@ -11,6 +11,6 @@ public class DeviceDb : DbContext
         : base(options) { }
 
     public DbSet<Device> Devices => Set<Device>();
-    public DbSet<FileToUpload> filesUpload => Set<FileToUpload>();
+    public DbSet<FileToUpload> FilesUploads => Set<FileToUpload>();
 }
 

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DeviceModel;
 using DeviceContext;
+using ModelsFileToUpload;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DeviceDb>(opt => opt.UseSqlite("Data Source=Mac.db"));
@@ -25,6 +26,9 @@ app.UseSwaggerUI(options =>
 app.MapGet("/mac", async (DeviceDb db) =>
     await db.Devices.ToListAsync());
 
+
+app.MapGet("/uploads", async (DeviceDb db) =>
+    await db.FilesUploads.ToListAsync());
 
 
 app.MapPost("/mac", async (Device device, DeviceDb db) =>
