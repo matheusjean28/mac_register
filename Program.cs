@@ -25,6 +25,8 @@ app.UseSwaggerUI(options =>
 app.MapGet("/mac", async (DeviceDb db) =>
     await db.Devices.ToListAsync());
 
+
+
 app.MapPost("/mac", async (Device device, DeviceDb db) =>
 {
     db.Devices.Add(device);

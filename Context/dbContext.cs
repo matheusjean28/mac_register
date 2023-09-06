@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using DeviceModel;
+using  ModelsFileToUpload;
+
+
 namespace DeviceContext;
 
 public class DeviceDb : DbContext
@@ -8,5 +11,6 @@ public class DeviceDb : DbContext
         : base(options) { }
 
     public DbSet<Device> Devices => Set<Device>();
+    public DbSet<FileToUpload> filesUpload => Set<FileToUpload>();
 }
 
