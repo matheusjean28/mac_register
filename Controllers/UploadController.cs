@@ -20,19 +20,7 @@ namespace ControllerUpload
             _db = db;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetItens(DeviceDb db)
-        {
-            var devices = await db.Devices.ToListAsync();
-
-            if (devices == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(devices); 
-        }
-
+      
         [HttpPost]
         public async Task<ActionResult> Upload([FromForm] ICollection<IFormFile>? files)
         {
