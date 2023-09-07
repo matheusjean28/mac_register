@@ -5,6 +5,7 @@ using System.IO;
 using DeviceContext;
 using System.Threading.Tasks;
 using DeviceModel;
+using Microsoft.EntityFrameworkCore;
 namespace ControllerUpload
 {
     [ApiController]
@@ -19,6 +20,19 @@ namespace ControllerUpload
             _db = db;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetItens(DeviceDb db)
+        {
+            var devices = await db.Devices.ToListAsync();
+
+            if (devices == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(devices); 
+        }
+
         [HttpPost]
         public async Task<ActionResult> Upload([FromForm] ICollection<IFormFile>? files)
         {
@@ -27,7 +41,7 @@ namespace ControllerUpload
                 return BadRequest();
 
             }
-            List<byte[]> data = new();
+            List<byte[]> Data = new();
             foreach (var formFile in files)
             {
                 if (formFile.Length > 0)
