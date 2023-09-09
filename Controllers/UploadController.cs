@@ -11,7 +11,7 @@ namespace ControllerUpload
     {
 
         private readonly DeviceDb _db;
-        private readonly string _uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+        private readonly string _uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "UploadedFile");
 
         public UploadController(DeviceDb db)
         {
@@ -22,7 +22,7 @@ namespace ControllerUpload
         public static void CheckFolderExist()
         {
             var _currentDirectory = Directory.GetCurrentDirectory();
-            var _uploadPath = Path.Combine(_currentDirectory, "Uploads");
+            var _uploadPath = Path.Combine(_currentDirectory, "UploadedFile");
 
             if (!Directory.Exists(_uploadPath))
             {
