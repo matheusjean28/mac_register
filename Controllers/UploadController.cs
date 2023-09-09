@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ModelsFileToUpload;
 using System.Collections.Generic;
 using System.IO;
 using DeviceContext;
@@ -46,23 +47,25 @@ namespace ControllerUpload
             {
                 await file.CopyToAsync(stream);
             }
+            byte[] fileData;
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await fileStream.CopyToAsync(memoryStream);
+                    fileData = memoryStream.ToArray();
+                }
+            }
+            var fileToUpload = new FileToUpload
+            {
+                Data = fileData
+            };
+            _db.FilesUploads.Add(fileToUpload);
+            await _db.SaveChangesAsync();
+            return CreatedAtAction(nameof(UploadFile), new { id = fileToUpload.Id }, new { Name = file.FileName });
 
-            return Ok($"Your file has been saved!");
 
-            // foreach (var formFile in files)
-            // {
-            //     if (formFile.Length > 0)
-            //     {
-            //         using var stream = new MemoryStream();
-            //         await formFile.CopyToAsync(stream);
-            //         var device = new Device
-            //         {
-            //             Data = stream.ToArray()
-            //         };
-            //         _db.Devices.Add(device);
-            //     }
-            // }
-            // await _db.SaveChangesAsync();
+
         }
     }
 }
