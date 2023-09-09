@@ -5,6 +5,6 @@ namespace ModelsFileToUpload
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public byte[] Data = new byte[0];
+        public byte[] Data  {get;set;} = new byte[0] ;
     }
 }   

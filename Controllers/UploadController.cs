@@ -4,6 +4,7 @@ using ModelsFileToUpload;
 using System.Collections.Generic;
 using System.IO;
 using DeviceContext;
+using Microsoft.EntityFrameworkCore;
 namespace ControllerUpload
 {
     [ApiController]
@@ -31,9 +32,21 @@ namespace ControllerUpload
             }
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
+        {
+            var uploads = await _db.FilesUploads.ToListAsync();
+
+            if (uploads.Count == 0)
+            {
+                return NotFound("No upload items found.");
+            }
+
+            return Ok(uploads);
+        }
 
 
-        [HttpPost("upload")]
+        [HttpPost]
         public async Task<ActionResult> UploadFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -63,9 +76,6 @@ namespace ControllerUpload
             _db.FilesUploads.Add(fileToUpload);
             await _db.SaveChangesAsync();
             return CreatedAtAction(nameof(UploadFile), new { id = fileToUpload.Id }, new { Name = file.FileName });
-
-
-
         }
     }
 }
