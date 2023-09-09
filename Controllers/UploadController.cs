@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
 using DeviceContext;
-using System.Threading.Tasks;
-using DeviceModel;
-using Microsoft.EntityFrameworkCore;
 namespace ControllerUpload
 {
     [ApiController]
@@ -14,37 +11,58 @@ namespace ControllerUpload
     {
 
         private readonly DeviceDb _db;
+        private readonly string _uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
 
         public UploadController(DeviceDb db)
         {
             _db = db;
+            CheckFolderExist();
         }
 
-      
-        [HttpPost]
-        public async Task<ActionResult> Upload([FromForm] ICollection<IFormFile>? files)
+        public static void CheckFolderExist()
         {
-            if (files == null || files.Count == 0)
-            {
-                return BadRequest();
+            var _currentDirectory = Directory.GetCurrentDirectory();
+            var _uploadPath = Path.Combine(_currentDirectory, "Uploads");
 
-            }
-            List<byte[]> Data = new();
-            foreach (var formFile in files)
+            if (!Directory.Exists(_uploadPath))
             {
-                if (formFile.Length > 0)
-                {
-                    using var stream = new MemoryStream();
-                    await formFile.CopyToAsync(stream);
-                    var device = new Device
-                    {
-                        Data = stream.ToArray()
-                    };
-                    _db.Devices.Add(device);
-                }
+                Directory.CreateDirectory(_uploadPath);
             }
-            await _db.SaveChangesAsync();
+        }
+
+
+
+        [HttpPost("upload")]
+        public async Task<ActionResult> UploadFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("File could not be empty.");
+            }
+
+            var filePath = Path.Combine(_uploadPath, file.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
             return Ok($"Your file has been saved!");
+
+            // foreach (var formFile in files)
+            // {
+            //     if (formFile.Length > 0)
+            //     {
+            //         using var stream = new MemoryStream();
+            //         await formFile.CopyToAsync(stream);
+            //         var device = new Device
+            //         {
+            //             Data = stream.ToArray()
+            //         };
+            //         _db.Devices.Add(device);
+            //     }
+            // }
+            // await _db.SaveChangesAsync();
         }
     }
 }

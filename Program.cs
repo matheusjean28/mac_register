@@ -9,9 +9,13 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddControllers();
 
 var app = builder.Build();
+app.UseRouting();
+app.MapControllers();
+
+
 app.UseSwagger(options =>
 {
     options.SerializeAsV2 = true;
