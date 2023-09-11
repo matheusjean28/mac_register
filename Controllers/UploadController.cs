@@ -1,10 +1,13 @@
+
+using System.Security.AccessControl;
+using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
 using System.Collections.Generic;
-using System.IO;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
+
 namespace ControllerUpload
 {
     [ApiController]
@@ -32,6 +35,8 @@ namespace ControllerUpload
             }
         }
 
+      
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
         {
@@ -54,9 +59,11 @@ namespace ControllerUpload
                 return BadRequest("File could not be empty.");
             }
 
+
             var filePath = Path.Combine(_uploadPath, file.FileName);
 
-            
+
+
             byte[] fileData;
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -76,19 +83,22 @@ namespace ControllerUpload
             return CreatedAtAction(nameof(UploadFile), new { id = fileToUpload.Id }, new { Name = file.FileName });
         }
 
+        private object AddEncryption(IFormFile file)
+        {
+            throw new NotImplementedException();
+        }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteFile(int Id)
         {
             var DeleteID = await _db.FilesUploads.FindAsync(Id);
-            if(DeleteID == null)
+            if (DeleteID == null)
             {
                 return BadRequest("File Was not found");
             }
-             _db.FilesUploads.Remove(DeleteID);
-            var itemId = DeleteID.ToString();
+            _db.FilesUploads.Remove(DeleteID);
             await _db.SaveChangesAsync();
-            return Ok($"The item {itemId} was deleted with sucess!");
+            return Ok($"The item was deleted with sucess!");
         }
     }
 }
