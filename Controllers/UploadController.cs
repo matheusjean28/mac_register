@@ -90,6 +90,7 @@ namespace ControllerUpload
             }
              _db.FilesUploads.Remove(DeleteID);
             var itemId = DeleteID.ToString();
+            await _db.SaveChangesAsync();
             return Ok($"The item {itemId} was deleted with sucess!");
         }
     }
