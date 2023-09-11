@@ -1,33 +1,46 @@
 using Microsoft.EntityFrameworkCore;
 using DeviceModel;
 using DeviceContext;
-using ControllerUpload;
-
-using Microsoft.Extensions.DependencyModel;
-using System.Runtime.CompilerServices;
-
+using ModelsFileToUpload;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DeviceDb>(opt => opt.UseSqlite("Data Source=Mac.db"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+
 var app = builder.Build();
-app.UseStaticFiles();
+app.UseRouting();
 app.MapControllers();
+
+
+app.UseSwagger(options =>
+{
+    options.SerializeAsV2 = true;
+});
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
 
 
 app.MapGet("/mac", async (DeviceDb db) =>
     await db.Devices.ToListAsync());
-app.MapPost("/upload", async (ICollection<IFormFile> files, UploadController uploadController) =>
-{
-    return await uploadController.Upload(files);
-});
+
+
+app.MapGet("/uploads", async (DeviceDb db) =>
+    await db.FilesUploads.ToListAsync());
+
 
 app.MapPost("/mac", async (Device device, DeviceDb db) =>
 {
     db.Devices.Add(device);
     await db.SaveChangesAsync();
-
     return Results.Created("/mac", device);
 });
+
 
 app.Run();

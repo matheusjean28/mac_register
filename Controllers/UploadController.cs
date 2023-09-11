@@ -1,35 +1,96 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ModelsFileToUpload;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
+using DeviceContext;
+using Microsoft.EntityFrameworkCore;
 namespace ControllerUpload
 {
     [ApiController]
     [Route("upload")]
-
     public class UploadController : ControllerBase
     {
-        public async Task<ActionResult> Upload([FromForm] ICollection<IFormFile> files)
+
+        private readonly DeviceDb _db;
+        private readonly string _uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "UploadedFile");
+
+        public UploadController(DeviceDb db)
         {
-            if (files == null || files.Count == 0)
+            _db = db;
+            CheckFolderExist();
+        }
+
+        public static void CheckFolderExist()
+        {
+            var _currentDirectory = Directory.GetCurrentDirectory();
+            var _uploadPath = Path.Combine(_currentDirectory, "UploadedFile");
+
+            if (!Directory.Exists(_uploadPath))
             {
-                return BadRequest();
+                Directory.CreateDirectory(_uploadPath);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
+        {
+            var uploads = await _db.FilesUploads.ToListAsync();
+
+            if (uploads.Count == 0)
+            {
+                return NotFound("No upload items found.");
             }
 
-            List<byte[]> data = new();
-            foreach (var formFile in files)
+            return Ok(uploads);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> UploadFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
             {
-                if (formFile.Length > 0)
+                return BadRequest("File could not be empty.");
+            }
+
+            var filePath = Path.Combine(_uploadPath, file.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            byte[] fileData;
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                using (var memoryStream = new MemoryStream())
                 {
-                    using (var stream = new MemoryStream())
-                    {
-                        await formFile.CopyToAsync(stream);
-                        data.Add(stream.ToArray());
-                    }
+                    await fileStream.CopyToAsync(memoryStream);
+                    fileData = memoryStream.ToArray();
                 }
             }
-            return File(data[0], files.FirstOrDefault().ContentType, "myfile.txt");
+            var fileToUpload = new FileToUpload
+            {
+                Name = file.FileName,
+                Data = fileData
+            };
+            _db.FilesUploads.Add(fileToUpload);
+            await _db.SaveChangesAsync();
+            return CreatedAtAction(nameof(UploadFile), new { id = fileToUpload.Id }, new { Name = file.FileName });
+        }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteFile(int Id)
+        {
+            var DeleteID = await _db.FilesUploads.FindAsync(Id);
+            if(DeleteID == null)
+            {
+                return BadRequest("File Was not found");
+            }
+             _db.FilesUploads.Remove(DeleteID);
+            var itemId = DeleteID.ToString();
+            return Ok($"The item {itemId} was deleted with sucess!");
         }
     }
 }
