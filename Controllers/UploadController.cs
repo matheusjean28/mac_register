@@ -71,11 +71,26 @@ namespace ControllerUpload
             }
             var fileToUpload = new FileToUpload
             {
+                Name = file.FileName,
                 Data = fileData
             };
             _db.FilesUploads.Add(fileToUpload);
             await _db.SaveChangesAsync();
             return CreatedAtAction(nameof(UploadFile), new { id = fileToUpload.Id }, new { Name = file.FileName });
+        }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteFile(int Id)
+        {
+            var DeleteID = await _db.FilesUploads.FindAsync(Id);
+            if(DeleteID == null)
+            {
+                return BadRequest("File Was not found");
+            }
+             _db.FilesUploads.Remove(DeleteID);
+            var itemId = DeleteID.ToString();
+            return Ok($"The item {itemId} was deleted with sucess!");
         }
     }
 }
