@@ -56,10 +56,7 @@ namespace ControllerUpload
 
             var filePath = Path.Combine(_uploadPath, file.FileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+            
             byte[] fileData;
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
