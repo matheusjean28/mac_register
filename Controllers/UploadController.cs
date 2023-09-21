@@ -1,15 +1,12 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
-using System.Collections.Generic;
-using System.IO;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
 namespace ControllerUpload
 {
     [ApiController]
     [Route("upload")]
-    public class UploadController : ControllerBase
+    public class UploadController : ControllerBase 
     {
 
         private readonly DeviceDb _db;
@@ -43,6 +40,19 @@ namespace ControllerUpload
             }
 
             return Ok(uploads);
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<FileToUpload>> GetUploadsById(int Id)
+        {
+           var itemById = await _db.FilesUploads.FindAsync(Id);
+
+           if(itemById == null )
+           {
+             return NotFound("item not found");
+           }
+
+           return Ok(itemById);
         }
 
 
@@ -84,13 +94,16 @@ namespace ControllerUpload
         public async Task<IActionResult> DeleteFile(int Id)
         {
             var DeleteID = await _db.FilesUploads.FindAsync(Id);
-            if(DeleteID == null)
+            if (DeleteID == null)
             {
-                return BadRequest("File Was not found");
+                 var itemdelete = $"The item may not exists!";
+                return BadRequest(itemdelete);
             }
-             _db.FilesUploads.Remove(DeleteID);
-            var itemId = DeleteID.ToString();
-            return Ok($"The item {itemId} was deleted with sucess!");
+            _db.FilesUploads.Remove(DeleteID);
+            await _db.SaveChangesAsync();
+
+            var itemId = $"The item {DeleteID.Name} was deleted with sucess!";
+            return Ok(itemId);
         }
     }
 }
