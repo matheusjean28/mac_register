@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using DeviceModel;
 using DeviceContext;
-using ModelsFileToUpload;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DeviceDb>(opt => opt.UseSqlite("Data Source=Mac.db"));

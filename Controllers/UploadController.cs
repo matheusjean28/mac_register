@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
+using ReadCsvFuncs; 
+
 namespace ControllerUpload
 {
     [ApiController]
@@ -70,6 +72,10 @@ namespace ControllerUpload
             {
                 await file.CopyToAsync(stream);
             }
+            var readCsvComponent = new ReadCsv(); 
+            await readCsvComponent.ReadCsvItens(file, _db);
+
+
             byte[] fileData;
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -86,7 +92,7 @@ namespace ControllerUpload
             };
             _db.FilesUploads.Add(fileToUpload);
             await _db.SaveChangesAsync();
-            return CreatedAtAction(nameof(UploadFile), new { id = fileToUpload.Id }, new { Name = file.FileName });
+            return Ok("we are processing your file...");
         }
 
 

@@ -1,6 +1,7 @@
 using MacToDatabaseModel;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.IO;
 using CsvHelper;
 using CsvHelper.Configuration;
 using DeviceCsv.Model;
@@ -15,7 +16,7 @@ namespace ReadCsvFuncs
 
 
 
-        public async Task<IEnumerable<MacToDatabase>> ReadCsvItens(DeviceDb db)
+        public async Task<IEnumerable<MacToDatabase>> ReadCsvItens(IFormFile file,DeviceDb db)
         {
             var _folderPath = folderPath;
             if (!Directory.Exists(folderName))
@@ -34,7 +35,7 @@ namespace ReadCsvFuncs
 
             };
 
-            using var reader = new StreamReader("Data/FileToRead.csv");
+            using var reader = new StreamReader((Stream)file);
             using var csv = new CsvReader(reader, config);
 
 
