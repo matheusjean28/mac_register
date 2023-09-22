@@ -31,7 +31,7 @@ app.MapGet("/mac", async (DeviceDb db) =>
 
 
 app.MapGet("/uploads", async (DeviceDb db) =>
-    await db.FilesUploads.ToListAsync());
+    await db.MacstoDbs.ToListAsync());
 
 
 app.MapPost("/mac", async (Device device, DeviceDb db) =>
