@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
+using ReadCsvFuncs; 
+
 namespace ControllerUpload
 {
     [ApiController]
@@ -32,20 +34,19 @@ namespace ControllerUpload
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
         {
-            var uploads = await _db.FilesUploads.ToListAsync();
+            var uploads = await _db.MacstoDbs.ToListAsync();
 
             if (uploads.Count == 0)
             {
                 return NotFound("No upload items found.");
             }
-
-            return Ok(uploads);
+                return Ok(uploads);
         }
 
         [HttpGet("{Id}")]
         public async Task<ActionResult<FileToUpload>> GetUploadsById(int Id)
         {
-           var itemById = await _db.FilesUploads.FindAsync(Id);
+           var itemById = await _db.MacstoDbs.FindAsync(Id);
 
            if(itemById == null )
            {
@@ -66,27 +67,17 @@ namespace ControllerUpload
 
             var filePath = Path.Combine(_uploadPath, file.FileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            using (var streamPath = new FileStream(filePath, FileMode.Create))
             {
-                await file.CopyToAsync(stream);
+                await file.CopyToAsync(streamPath);
             }
-            byte[] fileData;
-            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await fileStream.CopyToAsync(memoryStream);
-                    fileData = memoryStream.ToArray();
-                }
-            }
-            var fileToUpload = new FileToUpload
-            {
-                Name = file.FileName,
-                Data = fileData
-            };
-            _db.FilesUploads.Add(fileToUpload);
-            await _db.SaveChangesAsync();
-            return CreatedAtAction(nameof(UploadFile), new { id = fileToUpload.Id }, new { Name = file.FileName });
+
+
+            using Stream stream = file.OpenReadStream();
+            var readCsvComponent = new ReadCsv(); 
+            var macList = await readCsvComponent.ReadCsvItens(file, _db);
+
+            return Ok(macList.ToList());
         }
 
 

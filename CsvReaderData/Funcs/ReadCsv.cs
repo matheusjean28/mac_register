@@ -1,6 +1,7 @@
 using MacToDatabaseModel;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.IO;
 using CsvHelper;
 using CsvHelper.Configuration;
 using DeviceCsv.Model;
@@ -15,7 +16,7 @@ namespace ReadCsvFuncs
 
 
 
-        public async Task<IEnumerable<MacToDatabase>> ReadCsvItens(DeviceDb db)
+        public async Task<IEnumerable<MacToDatabase>> ReadCsvItens(IFormFile file, DeviceDb db)
         {
             var _folderPath = folderPath;
             if (!Directory.Exists(folderName))
@@ -34,7 +35,10 @@ namespace ReadCsvFuncs
 
             };
 
-            using var reader = new StreamReader("Data/FileToRead.csv");
+            using Stream stream = file.OpenReadStream();
+
+
+            using var reader = new StreamReader(stream);
             using var csv = new CsvReader(reader, config);
 
 
@@ -74,6 +78,11 @@ namespace ReadCsvFuncs
                         deviceItem.Model = device.Model;
                     }
                     macList.Add(deviceItem);
+
+                    foreach (var item in macList)
+                    {
+                        await db.MacstoDbs.AddAsync(item);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -82,14 +91,10 @@ namespace ReadCsvFuncs
                     continue;
                 }
             }
-            foreach (var item in macList)
-            {
-                Console.WriteLine($"Mac é:  >>  {item.Mac}");
-                await db.MacstoDbs.AddAsync(item);
-
-            }
+          
             await db.SaveChangesAsync();
             return macList;
         }
+
     }
 };
