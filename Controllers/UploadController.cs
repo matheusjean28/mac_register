@@ -12,23 +12,10 @@ namespace ControllerUpload
     {
 
         private readonly DeviceDb _db;
-        private readonly string _uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "UploadedFile");
 
         public UploadController(DeviceDb db)
         {
             _db = db;
-            CheckFolderExist();
-        }
-
-        public static void CheckFolderExist()
-        {
-            var _currentDirectory = Directory.GetCurrentDirectory();
-            var _uploadPath = Path.Combine(_currentDirectory, "UploadedFile");
-
-            if (!Directory.Exists(_uploadPath))
-            {
-                Directory.CreateDirectory(_uploadPath);
-            }
         }
 
         [HttpGet]
@@ -65,12 +52,12 @@ namespace ControllerUpload
                 return BadRequest("File could not be empty.");
             }
 
-            var filePath = Path.Combine(_uploadPath, file.FileName);
+            // var filePath = Path.Combine(_uploadPath, file.FileName);
 
-            using (var streamPath = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(streamPath);
-            }
+            // using (var streamPath = new FileStream(filePath, FileMode.Create))
+            // {
+            //     await file.CopyToAsync(streamPath);
+            // }
 
 
             using Stream stream = file.OpenReadStream();

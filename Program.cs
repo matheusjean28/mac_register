@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using DeviceModel;
 using DeviceContext;
 using ModelsFileToUpload;
+using MethodsFuncs;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DeviceDb>(opt => opt.UseSqlite("Data Source=Mac.db"));
@@ -10,11 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+var methods = new Methods();
+methods.CheckAndCreateFolderIfNotExist();
 
 var app = builder.Build();
 app.UseRouting();
 app.MapControllers();
-
 
 app.UseSwagger(options =>
 {
