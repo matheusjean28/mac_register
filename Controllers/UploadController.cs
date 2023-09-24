@@ -22,7 +22,6 @@ namespace ControllerUpload
         public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
         {
             var uploads = await _db.MacstoDbs.ToListAsync();
-
             if (uploads.Count == 0)
             {
                 return NotFound("No upload items found.");
@@ -34,12 +33,10 @@ namespace ControllerUpload
         public async Task<ActionResult<FileToUpload>> GetUploadsById(int Id)
         {
            var itemById = await _db.MacstoDbs.FindAsync(Id);
-
            if(itemById == null )
            {
              return NotFound("item not found");
            }
-
            return Ok(itemById);
         }
 
@@ -52,19 +49,14 @@ namespace ControllerUpload
                 return BadRequest("File could not be empty.");
             }
 
-            // var filePath = Path.Combine(_uploadPath, file.FileName);
-
-            // using (var streamPath = new FileStream(filePath, FileMode.Create))
-            // {
-            //     await file.CopyToAsync(streamPath);
-            // }
-
+            var FileFormat = file.Name;
+        
 
             using Stream stream = file.OpenReadStream();
             var readCsvComponent = new ReadCsv(); 
             var macList = await readCsvComponent.ReadCsvItens(file, _db);
 
-            return Ok(macList.ToList());
+            return Ok( $"{FileFormat}");
         }
 
 
