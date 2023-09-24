@@ -1,14 +1,16 @@
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
-using ReadCsvFuncs; 
+using ReadCsvFuncs;
+using MethodsFuncs;
 
 namespace ControllerUpload
 {
     [ApiController]
     [Route("upload")]
-    public class UploadController : ControllerBase 
+    public class UploadController : ControllerBase
     {
 
         private readonly DeviceDb _db;
@@ -26,37 +28,47 @@ namespace ControllerUpload
             {
                 return NotFound("No upload items found.");
             }
-                return Ok(uploads);
+            return Ok(uploads);
         }
 
         [HttpGet("{Id}")]
         public async Task<ActionResult<FileToUpload>> GetUploadsById(int Id)
         {
-           var itemById = await _db.MacstoDbs.FindAsync(Id);
-           if(itemById == null )
-           {
-             return NotFound("item not found");
-           }
-           return Ok(itemById);
+            var itemById = await _db.MacstoDbs.FindAsync(Id);
+            if (itemById == null)
+            {
+                return NotFound("item not found");
+            }
+            return Ok(itemById);
         }
 
 
         [HttpPost]
         public async Task<ActionResult> UploadFile(IFormFile file)
         {
+            Methods methods = new Methods();
             if (file == null || file.Length == 0)
             {
                 return BadRequest("File could not be empty.");
             }
 
-            var FileFormat = file.Name;
-        
+            var FileFormat = file.FileName;
 
-            using Stream stream = file.OpenReadStream();
-            var readCsvComponent = new ReadCsv(); 
-            var macList = await readCsvComponent.ReadCsvItens(file, _db);
 
-            return Ok( $"{FileFormat}");
+            if (methods.CheckFileExtension(FileFormat))
+            {
+
+                using Stream stream = file.OpenReadStream();
+                var readCsvComponent = new ReadCsv();
+                var macList = await readCsvComponent.ReadCsvItens(file, _db);
+
+            }
+            else
+            {
+                return BadRequest("The file must be a .Csv File.");
+            }
+
+            return Ok($"file wad aceppt");
         }
 
 
@@ -66,7 +78,7 @@ namespace ControllerUpload
             var DeleteID = await _db.FilesUploads.FindAsync(Id);
             if (DeleteID == null)
             {
-                 var itemdelete = $"The item may not exists!";
+                var itemdelete = $"The item may not exists!";
                 return BadRequest(itemdelete);
             }
             _db.FilesUploads.Remove(DeleteID);

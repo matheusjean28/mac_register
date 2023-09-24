@@ -6,7 +6,7 @@ namespace MethodsFuncs
 {
     public class Methods : IMethods
     {
-         private readonly string _uploadPath;
+        private readonly string _uploadPath;
 
         public Methods()
         {
@@ -19,5 +19,20 @@ namespace MethodsFuncs
             {
                 Directory.CreateDirectory(_uploadPath);
             }
-        }  }
+        }
+    }
+
+    public CheckFileExtension<bool>(string _fileName)
+    {
+        var Format = Path.GetExtension(_fileName);
+
+        if (Format != ".csv")
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
