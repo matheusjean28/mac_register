@@ -6,7 +6,7 @@ namespace MethodsInterfaces
     public interface IMethods
     {
         void CheckAndCreateFolderIfNotExist();
-        public CheckFileExtension(string _fileName);
+        public bool CheckFileExtension(string _fileName);
     }
     
 }

@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using MethodsInterfaces;
 namespace MethodsFuncs
-
 {
     public class Methods : IMethods
     {
@@ -20,19 +19,19 @@ namespace MethodsFuncs
                 Directory.CreateDirectory(_uploadPath);
             }
         }
-    }
 
-    public CheckFileExtension<bool>(string _fileName)
-    {
-        var Format = Path.GetExtension(_fileName);
+        public bool CheckFileExtension(string _fileName)
+        {
+            var Format = Path.GetExtension(_fileName);
 
-        if (Format != ".csv")
-        {
-            return false;
-        }
-        else
-        {
-            return true;
+            if (Format != ".csv")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
