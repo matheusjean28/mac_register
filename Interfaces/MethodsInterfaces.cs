@@ -1,5 +1,4 @@
-using System;
-using System.IO;
+using DeviceContext;
 
 namespace MethodsInterfaces
 {
@@ -7,6 +6,7 @@ namespace MethodsInterfaces
     {
         void CheckAndCreateFolderIfNotExist();
         public bool CheckFileExtension(string _fileName);
+        IAsyncEnumerable<bool> CheckIfMacAlreadyExists(DeviceDb db, string _macDevice);
     }
-    
+
 }

@@ -1,5 +1,4 @@
-using System;
-using System.IO;
+using DeviceContext;
 using MethodsInterfaces;
 namespace MethodsFuncs
 {
@@ -23,7 +22,6 @@ namespace MethodsFuncs
         public bool CheckFileExtension(string _fileName)
         {
             var Format = Path.GetExtension(_fileName);
-
             if (Format != ".csv")
             {
                 return false;
@@ -31,6 +29,19 @@ namespace MethodsFuncs
             else
             {
                 return true;
+            }
+        }
+
+        public async IAsyncEnumerable<bool> CheckIfMacAlreadyExists(DeviceDb db, string _macDevice)
+        {
+            var _content = await db.MacstoDbs.FindAsync(_macDevice);
+            if (_content != null)
+            {
+                yield return true; 
+            }
+            else
+            {
+                yield return false;
             }
         }
     }
