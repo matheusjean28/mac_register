@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using DeviceContext;
 using MethodsInterfaces;
 namespace MethodsFuncs
@@ -32,17 +33,22 @@ namespace MethodsFuncs
             }
         }
 
-        public async IAsyncEnumerable<bool> CheckIfMacAlreadyExists(DeviceDb db, string _macDevice)
-        {
-            var _content = await db.MacstoDbs.FindAsync(_macDevice);
-            if (_content != null)
-            {
-                yield return true; 
-            }
-            else
-            {
-                yield return false;
-            }
-        }
+         public async Task<bool> IsValidMacAddress(DeviceDb db, string mac)
+                    {
+                        string pattern = @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$";
+                        var MatchMac = Regex.IsMatch(mac, pattern);
+
+                        var _checkMac = await db.MacstoDbs.FindAsync(MatchMac);
+                        if (_checkMac != null)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+
+                            return false;
+                        }
+                    }
+        
     }
 }

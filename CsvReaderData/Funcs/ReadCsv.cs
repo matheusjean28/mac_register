@@ -34,20 +34,14 @@ namespace ReadCsvFuncs
             using var csv = new CsvReader(reader, config);
 
 
-            var records = csv.GetRecordsAsync<Device>();
-            await foreach (var device in records)
+            await foreach (var device in csv.GetRecordsAsync<Device>())
             {
                 try
                 {
                     MacToDatabase deviceItem = new();
-                    static bool IsValidMacAddress(string mac)
-                    {
-                        string pattern = @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$";
+                    Methods methods = new();
 
-                        return Regex.IsMatch(mac, pattern);
-                    }
-
-                    if (IsValidMacAddress(device.Mac))
+                    if (await methods.IsValidMacAddress(db, device.Mac))
                     {
                         deviceItem.Mac = device.Mac;
                     }
@@ -57,6 +51,8 @@ namespace ReadCsvFuncs
                         await File.AppendAllTextAsync(Path.Combine(_folderPath, "Error.csv"), errorMessage);
                         continue;
                     }
+
+
 
                     if (device.Model.Length <= 0 || device.Model.Length >= 99)
                     {

@@ -6,7 +6,7 @@ namespace MethodsInterfaces
     {
         void CheckAndCreateFolderIfNotExist();
         public bool CheckFileExtension(string _fileName);
-        IAsyncEnumerable<bool> CheckIfMacAlreadyExists(DeviceDb db, string _macDevice);
+        // IAsyncEnumerable<string> CheckIfMacAlreadyExists(DeviceDb db, string _macDevice);
     }
 
 }
