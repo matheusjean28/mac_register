@@ -1,11 +1,11 @@
 using MacToDatabaseModel;
 using DeviceContext;
-
+using ResponseMacListModel;
 namespace Read.Interfaces
 {
     public interface IRead
     {
-         Task<IEnumerable<MacToDatabase>>ReadCsvItens(IFormFile file,DeviceDb db );
+         Task<IEnumerable<ResponseMacList>>ReadCsvItens(IFormFile file,DeviceDb db );
 };
 
 

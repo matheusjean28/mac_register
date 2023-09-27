@@ -37,14 +37,17 @@ namespace MethodsFuncs
 
         public async Task<string> IsValidMacAddress(DeviceDb db, string mac)
         {
+            List<string> AlreadyExistsMacs = new();
             string pattern = @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$";
             var MatchMac = Regex.IsMatch(mac, pattern).ToString();
 
              var _checkMac = await db.MacstoDbs.FirstOrDefaultAsync(item => item.Mac == mac);
             if (_checkMac != null)
             {
+                AlreadyExistsMacs.Add(mac);
                 throw new MacAlreadyExistsException(mac); 
             }
+
             return MatchMac;
         }
 
