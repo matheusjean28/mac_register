@@ -7,6 +7,8 @@ using CsvHelper.Configuration;
 using DeviceCsv.Model;
 using Read.Interfaces;
 using DeviceContext;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Net;
 namespace ReadCsvFuncs
 {
     public class ReadCsv : IRead
@@ -41,22 +43,15 @@ namespace ReadCsvFuncs
                     MacToDatabase deviceItem = new();
                     Methods methods = new();
 
-                    if (await methods.IsValidMacAddress(db, device.Mac))
+                    var checkStrin = await methods.IsValidMacAddress(db, device.Mac);
+                    if(checkStrin != null )
                     {
                         deviceItem.Mac = device.Mac;
                     }
-                    else
-                    {
-                        string errorMessage = $"[Error Occurred at {DateTime.Now}] - Invalid Model: {device.Model}, MAC: {device.Mac}";
-                        await File.AppendAllTextAsync(Path.Combine(_folderPath, "Error.csv"), errorMessage);
-                        continue;
-                    }
-
-
 
                     if (device.Model.Length <= 0 || device.Model.Length >= 99)
                     {
-                        string errorMessage = $"[Error Occurred at {DateTime.Now}] - Invalid Model: {device.Model}, MAC: {device.Mac}";
+                        string errorMessage = $"\n[Error Occurred at {DateTime.Now}] - Invalid Model: {device.Model}, MAC: {device.Mac}";
                         await File.AppendAllTextAsync(Path.Combine(_folderPath, "Error.csv"), errorMessage);
                         continue;
                     }
@@ -68,6 +63,7 @@ namespace ReadCsvFuncs
 
                     foreach (var item in macList)
                     {
+
                         await db.MacstoDbs.AddAsync(item);
                     }
                 }
@@ -79,6 +75,7 @@ namespace ReadCsvFuncs
                 }
             }
             await db.SaveChangesAsync();
+
             return macList;
         }
 

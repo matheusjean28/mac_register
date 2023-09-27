@@ -5,6 +5,7 @@ using DeviceContext;
 using Microsoft.EntityFrameworkCore;
 using ReadCsvFuncs;
 using MethodsFuncs;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ControllerUpload
 {
@@ -46,29 +47,32 @@ namespace ControllerUpload
         [HttpPost]
         public async Task<ActionResult> UploadFile(IFormFile file)
         {
-            Methods methods = new Methods();
+            Methods methods = new();
             if (file == null || file.Length == 0)
             {
                 return BadRequest("File could not be empty.");
             }
-
             var FileFormat = file.FileName;
-
 
             if (methods.CheckFileExtension(FileFormat))
             {
-
                 using Stream stream = file.OpenReadStream();
                 var readCsvComponent = new ReadCsv();
                 var macList = await readCsvComponent.ReadCsvItens(file, _db);
 
+                if (macList != null)
+                {
+                    return Ok(macList);
+                }
+                else
+                {
+                    return BadRequest("Failed to process the CSV file.");
+                }
             }
             else
             {
                 return BadRequest("The file must be a .Csv File.");
             }
-
-            return Ok($"file wad aceppt");
         }
 
 

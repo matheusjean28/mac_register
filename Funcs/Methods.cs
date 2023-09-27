@@ -1,6 +1,8 @@
+using CustomExceptionFun;
 using System.Text.RegularExpressions;
 using DeviceContext;
 using MethodsInterfaces;
+using Microsoft.EntityFrameworkCore;
 namespace MethodsFuncs
 {
     public class Methods : IMethods
@@ -33,22 +35,18 @@ namespace MethodsFuncs
             }
         }
 
-         public async Task<bool> IsValidMacAddress(DeviceDb db, string mac)
-                    {
-                        string pattern = @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$";
-                        var MatchMac = Regex.IsMatch(mac, pattern);
+        public async Task<string> IsValidMacAddress(DeviceDb db, string mac)
+        {
+            string pattern = @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$";
+            var MatchMac = Regex.IsMatch(mac, pattern).ToString();
 
-                        var _checkMac = await db.MacstoDbs.FindAsync(MatchMac);
-                        if (_checkMac != null)
-                        {
-                            return true;
-                        }
-                        else
-                        {
+             var _checkMac = await db.MacstoDbs.FirstOrDefaultAsync(item => item.Mac == mac);
+            if (_checkMac != null)
+            {
+                throw new MacAlreadyExistsException(mac); 
+            }
+            return MatchMac;
+        }
 
-                            return false;
-                        }
-                    }
-        
     }
 }

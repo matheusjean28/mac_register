@@ -1,1 +1,321 @@
 [Error Occurred at 22/09/2023 20:20:00] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 23/09/2023 16:30:34] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 23/09/2023 16:39:21] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 24/09/2023 15:50:00] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 24/09/2023 16:13:59] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 24/09/2023 16:14:28] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 24/09/2023 16:15:38] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 24/09/2023 16:34:07] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 24/09/2023 16:39:27] - Invalid Model: Modelo32, MAC: FF:00:3a:44[Error Occurred at 24/09/2023 16:42:28] - Invalid Model: Modelo32, MAC: FF:00:3a:44
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:27:06] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 11:22:33:44:55:66
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 22:33:44:55:66:77
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 33:44:55:66:77:88
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 44:55:66:77:88:99
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 55:66:77:88:99:AA
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 66:77:88:99:AA:BB
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 77:88:99:AA:BB:CC
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 88:99:AA:BB:CC:DD
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 99:AA:BB:CC:DD:EE
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: BB:CC:DD:EE:FF:00
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: CC:DD:EE:FF:00:11
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: DD:EE:FF:00:11:22
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: EE:FF:00:11:22:33
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: FF:00:11:22:33:44
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 11:22:33:44:55:66
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 22:33:44:55:66:77
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 33:44:55:66:77:88
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 44:55:66:77:88:99
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 55:66:77:88:99:AA
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 66:77:88:99:AA:BB
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 77:88:99:AA:BB:CC
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 88:99:AA:BB:CC:DD
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: 99:AA:BB:CC:DD:EE
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: BB:CC:DD:EE:FF:00
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: CC:DD:EE:FF:00:11
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: DD:EE:FF:00:11:22
+[Error Occurred at 26/09/2023 19:54:20] - MAC Already Exists: EE:FF:00:11:22:33
+[Error Occurred at 26/09/2023 19:54:20] - Invalid Model: Modelo32, MAC: FF:00:3a:44
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 11:22:33:44:55:66
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 22:33:44:55:66:77
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 33:44:55:66:77:88
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 44:55:66:77:88:99
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 55:66:77:88:99:AA
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 66:77:88:99:AA:BB
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 77:88:99:AA:BB:CC
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 88:99:AA:BB:CC:DD
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 99:AA:BB:CC:DD:EE
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: BB:CC:DD:EE:FF:00
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: CC:DD:EE:FF:00:11
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: DD:EE:FF:00:11:22
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: EE:FF:00:11:22:33
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: FF:00:11:22:33:44
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 11:22:33:44:55:66
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 22:33:44:55:66:77
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 33:44:55:66:77:88
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 44:55:66:77:88:99
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 55:66:77:88:99:AA
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 66:77:88:99:AA:BB
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 77:88:99:AA:BB:CC
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 88:99:AA:BB:CC:DD
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: 99:AA:BB:CC:DD:EE
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: BB:CC:DD:EE:FF:00
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: CC:DD:EE:FF:00:11
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: DD:EE:FF:00:11:22
+[Error Occurred at 26/09/2023 20:05:05] - MAC Already Exists: EE:FF:00:11:22:33
+[Error Occurred at 26/09/2023 20:05:05] - Invalid Model: Modelo32, MAC: FF:00:3a:44
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 11:22:33:44:55:66
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 22:33:44:55:66:77
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 33:44:55:66:77:88
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 44:55:66:77:88:99
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 55:66:77:88:99:AA
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 66:77:88:99:AA:BB
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 77:88:99:AA:BB:CC
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 88:99:AA:BB:CC:DD
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 99:AA:BB:CC:DD:EE
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: BB:CC:DD:EE:FF:00
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: CC:DD:EE:FF:00:11
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: DD:EE:FF:00:11:22
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: EE:FF:00:11:22:33
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: FF:00:11:22:33:44
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 11:22:33:44:55:66
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 22:33:44:55:66:77
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 33:44:55:66:77:88
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 44:55:66:77:88:99
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 55:66:77:88:99:AA
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 66:77:88:99:AA:BB
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 77:88:99:AA:BB:CC
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 88:99:AA:BB:CC:DD
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: 99:AA:BB:CC:DD:EE
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: BB:CC:DD:EE:FF:00
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: CC:DD:EE:FF:00:11
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: DD:EE:FF:00:11:22
+[Error Occurred at 26/09/2023 20:10:54] - MAC Already Exists: EE:FF:00:11:22:33
+[Error Occurred at 26/09/2023 20:10:54] - Invalid Model: Modelo32, MAC: FF:00:3a:44
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 11:22:33:44:55:66
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 22:33:44:55:66:77
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 33:44:55:66:77:88
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 44:55:66:77:88:99
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 55:66:77:88:99:AA
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 66:77:88:99:AA:BB
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 77:88:99:AA:BB:CC
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 88:99:AA:BB:CC:DD
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 99:AA:BB:CC:DD:EE
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: BB:CC:DD:EE:FF:00
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: CC:DD:EE:FF:00:11
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: DD:EE:FF:00:11:22
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: EE:FF:00:11:22:33
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: FF:00:11:22:33:44
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 11:22:33:44:55:66
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 22:33:44:55:66:77
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 33:44:55:66:77:88
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 44:55:66:77:88:99
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 55:66:77:88:99:AA
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 66:77:88:99:AA:BB
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 77:88:99:AA:BB:CC
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 88:99:AA:BB:CC:DD
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: 99:AA:BB:CC:DD:EE
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: BB:CC:DD:EE:FF:00
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: CC:DD:EE:FF:00:11
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: DD:EE:FF:00:11:22
+[Error Occurred at 26/09/2023 20:11:08] - MAC Already Exists: EE:FF:00:11:22:33
+[Error Occurred at 26/09/2023 20:11:08] - Invalid Model: Modelo32, MAC: FF:00:3a:44
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:11:38] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:21:10] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:26:35] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:35:22] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:35:22] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:35:22] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:35:22] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:35:22] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:36:53] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:36:53] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:36:53] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:36:53] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:36:53] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:47:26] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:47:26] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:47:26] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:47:26] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:47:26] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:48:13] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:48:13] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:48:13] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:48:13] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:48:13] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:49:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:49:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:49:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:49:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:49:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:52:56] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:52:56] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:52:56] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:52:56] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:52:56] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:54:00] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:54:00] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:54:00] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:54:00] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 20:54:00] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'bool', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:01:54] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:01:54] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:01:54] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:01:54] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:01:54] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:04:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:04:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:04:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:04:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:04:59] - The key value at position 0 of the call to 'DbSet<MacToDatabase>.Find' was of type 'string', which does not match the property type of 'int'.
+[Error Occurred at 26/09/2023 21:06:44] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 21:06:44] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:06:44] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:09:10] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 21:09:10] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:09:10] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:09:56] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 21:09:56] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:09:56] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:10:00] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 21:10:00] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:10:00] - MAC Already Exists: 12:34:56:78:90:AB
+[Error Occurred at 26/09/2023 21:10:00] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:10:00] - MAC Already Exists: 12:34:56:78:90:AB
+[Error Occurred at 26/09/2023 21:10:05] - MAC Already Exists: 00:11:22:33:44:55
+[Error Occurred at 26/09/2023 21:10:05] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:10:05] - MAC Already Exists: 12:34:56:78:90:AB
+[Error Occurred at 26/09/2023 21:10:05] - MAC Already Exists: AA:BB:CC:DD:EE:FF
+[Error Occurred at 26/09/2023 21:10:05] - MAC Already Exists: 12:34:56:78:90:AB
