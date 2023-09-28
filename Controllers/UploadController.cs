@@ -1,11 +1,10 @@
-using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
 using ReadCsvFuncs;
+using StatusEnumFunc;
 using MethodsFuncs;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ControllerUpload
 {
@@ -62,7 +61,8 @@ namespace ControllerUpload
 
                 if (macList != null)
                 {
-                    return Ok(macList);
+                    return StatusCode(207, macList);
+
                 }
                 else
                 {

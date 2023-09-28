@@ -1,6 +1,6 @@
 Id,Model,Mac,Data,RemoteAccess,Problem
-1,Device1,00:11:22:33:44:55,2023-09-25,true,Connection Issue
-2,Device2,AA:BB:CC:DD:EE:FF,2023-09-25,false,Software Error
-3,Device3,12:34:56:78:90:AB,2023-09-25,true,Hardware Failure
-4,Device4,AA:BB:CC:DD:EE:FF,2023-09-25,false,Connection Issue
-5,Device5,12:34:56:78:90:AB,2023-09-25,true,Software Error
+1,Device1,00:11:22:33:44:55,2023-09-25,true,true
+2,Device2,AA:BB:CC:DD:EE:FF,2023-09-25,false,false
+3,Device3,12:34:56:78:90:AB,2023-09-25,true,true
+4,Device4,AA:BB:CC:DD:EE:FF,2023-09-25,false,false
+5,Device5,12:34:56:78:90:AB,2023-09-25,true,true

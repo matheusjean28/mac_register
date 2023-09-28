@@ -8,8 +8,6 @@ using CsvHelper.Configuration;
 using DeviceCsv.Model;
 using Read.Interfaces;
 using DeviceContext;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Net;
 using CustomExceptionFun;
 namespace ReadCsvFuncs
 {
@@ -54,6 +52,7 @@ namespace ReadCsvFuncs
                         result.Mac = device.Mac;
                         result.MacExists = false;
                         result.CreatedSuccessfully = true;
+                        result.Message = $"The {device.Mac} was created with sucess!";
                         processingResults.Add(result);
 
                         deviceItem.Mac = device.Mac;
@@ -84,7 +83,9 @@ namespace ReadCsvFuncs
                     {
                         Mac = device.Mac,
                         MacExists = true,
-                        CreatedSuccessfully = false
+                        CreatedSuccessfully = false,
+                        Message = $"The {device.Mac} Already exists!"
+
                     };
 
                     processingResults.Add(result);
