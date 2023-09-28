@@ -3,7 +3,6 @@ using ModelsFileToUpload;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
 using ReadCsvFuncs;
-using StatusEnumFunc;
 using MethodsFuncs;
 
 namespace ControllerUpload
@@ -61,7 +60,7 @@ namespace ControllerUpload
 
                 if (macList != null)
                 {
-                    return StatusCode(207, macList);
+                    return Ok($"We recive your File: {file.FileName}, we are working in!");
 
                 }
                 else
