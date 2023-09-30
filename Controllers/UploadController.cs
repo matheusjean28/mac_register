@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using BackgroundJobsServices;
 using ModelsFileToUpload;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
 using ReadCsvFuncs;
 using MethodsFuncs;
+using Hangfire;
 
 namespace ControllerUpload
 {
@@ -13,7 +15,6 @@ namespace ControllerUpload
     {
 
         private readonly DeviceDb _db;
-
         public UploadController(DeviceDb db)
         {
             _db = db;
@@ -46,6 +47,8 @@ namespace ControllerUpload
         public async Task<ActionResult> UploadFile(IFormFile file)
         {
             Methods methods = new();
+            BackgroundJobs backgroundJobs = new(_db);
+
             if (file == null || file.Length == 0)
             {
                 return BadRequest("File could not be empty.");
@@ -54,14 +57,11 @@ namespace ControllerUpload
 
             if (methods.CheckFileExtension(FileFormat))
             {
-                using Stream stream = file.OpenReadStream();
-                var readCsvComponent = new ReadCsv();
-                var macList = await readCsvComponent.ReadCsvItens(file, _db);
+                bool processingResult = await backgroundJobs.ProcessCsvInBackground(file);
 
-                if (macList != null)
+                if (processingResult)
                 {
-                    return Ok($"We recive your File: {file.FileName}, we are working in!");
-
+                    return Ok($"We received your File: {file.FileName}, we are working on it!");
                 }
                 else
                 {
