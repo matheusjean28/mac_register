@@ -1,15 +1,13 @@
 using ReadCsvFuncs;
 using DeviceContext;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace BackgroundJobsServices
+namespace BackgroundCallProcessCsvServices
 {
-    public class BackgroundJobs
+    public class BackgroundCallProcessCsv
     {
         private readonly DeviceDb _db;
 
-        public BackgroundJobs(DeviceDb db)
+        public BackgroundCallProcessCsv(DeviceDb db)
         {
             _db = db;
         }

@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using BackgroundJobsServices;
 using ModelsFileToUpload;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
-using ReadCsvFuncs;
 using MethodsFuncs;
-using Hangfire;
+using BackgroundCallProcessCsvServices;
 
 namespace ControllerUpload
 {
@@ -13,12 +11,41 @@ namespace ControllerUpload
     [Route("upload")]
     public class UploadController : ControllerBase
     {
-
+        private readonly HttpClient httpClient;
         private readonly DeviceDb _db;
         public UploadController(DeviceDb db)
         {
             _db = db;
+            httpClient = new HttpClient
+            {
+                BaseAddress = new Uri("http://localhost:5000/recive-process")
+            };
         }
+
+        [HttpGet("getService")]
+        public async Task TriggerCsvProcessing(int id)
+    {
+        try
+        {
+            // Fazer a chamada HTTP POST para a rota "ProcessCsv".
+            HttpResponseMessage response = await httpClient.PostAsync($"recive-process?id={id}", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var contentResponse = response.Content;
+                Console.WriteLine($"{contentResponse}.");
+            }
+            else
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error on processing CSV: {errorMessage}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error on processing CSV: {ex.Message}");
+        }
+    }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
@@ -43,11 +70,14 @@ namespace ControllerUpload
         }
 
 
+
+        //Anotation -- stap on process txt
+        //post method
         [HttpPost]
         public async Task<ActionResult> UploadFile(IFormFile file)
         {
             Methods methods = new();
-            BackgroundJobs backgroundJobs = new(_db);
+            BackgroundCallProcessCsv backgroundJobs = new(_db);
 
             if (file == null || file.Length == 0)
             {
