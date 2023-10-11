@@ -27,7 +27,6 @@ namespace ControllerUpload
     {
         try
         {
-            // Fazer a chamada HTTP POST para a rota "ProcessCsv".
             HttpResponseMessage response = await httpClient.PostAsync($"recive-process?id={id}", null);
 
             if (response.IsSuccessStatusCode)
