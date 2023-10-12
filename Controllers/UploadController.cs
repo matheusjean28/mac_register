@@ -18,39 +18,45 @@ namespace ControllerUpload
             _db = db;
             httpClient = new HttpClient
             {
-                BaseAddress = new Uri("http://localhost:5000/recive-process")
+                BaseAddress = new Uri("http://localhost:5000/")
             };
         }
 
-        [HttpGet("getService")]
-        public async Task TriggerCsvProcessing(int id)
-    {
-        try
+        [HttpGet("/CallProcessCsv")]
+        public async Task<ActionResult<IEnumerable<HttpClient>>> TriggerCsvProcessing(int id)
         {
-            HttpResponseMessage response = await httpClient.PostAsync($"recive-process?id={id}", null);
+            try
+            {
+                HttpResponseMessage response = await httpClient.PostAsync($"process-csv?id={id}", null);
 
-            if (response.IsSuccessStatusCode)
-            {
-                var contentResponse = response.Content;
-                Console.WriteLine($"{contentResponse}.");
+                if (response.IsSuccessStatusCode)
+                {
+                    var contentResponse = await response.Content.ReadAsStringAsync();
+
+                    
+                    Console.WriteLine($"{contentResponse}");
+                    return Ok($"{contentResponse}");
+                }
+                else
+                {
+                    string errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error on processing CSV");
+                    return BadRequest($"{errorMessage}");
+                }
             }
-            else
+            catch (Exception)
             {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error on processing CSV: {errorMessage}");
+                Console.WriteLine($"Error on processing CSV");
+                return BadRequest($"Error on processing CSV");
+
             }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error on processing CSV: {ex.Message}");
-        }
-    }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
         {
             var uploads = await _db.MacstoDbs.ToListAsync();
-            if (uploads.Count == 0)
+            if (uploads.Count == 0 || uploads == null)
             {
                 return NotFound("No upload items found.");
             }
@@ -68,40 +74,6 @@ namespace ControllerUpload
             return Ok(itemById);
         }
 
-
-
-        //Anotation -- stap on process txt
-        //post method
-        [HttpPost]
-        public async Task<ActionResult> UploadFile(IFormFile file)
-        {
-            Methods methods = new();
-            BackgroundCallProcessCsv backgroundJobs = new(_db);
-
-            if (file == null || file.Length == 0)
-            {
-                return BadRequest("File could not be empty.");
-            }
-            var FileFormat = file.FileName;
-
-            if (methods.CheckFileExtension(FileFormat))
-            {
-                bool processingResult = await backgroundJobs.ProcessCsvInBackground(file);
-
-                if (processingResult)
-                {
-                    return Ok($"We received your File: {file.FileName}, we are working on it!");
-                }
-                else
-                {
-                    return BadRequest("Failed to process the CSV file.");
-                }
-            }
-            else
-            {
-                return BadRequest("The file must be a .Csv File.");
-            }
-        }
 
 
         [HttpDelete]
