@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
-using MethodsFuncs;
-using BackgroundCallProcessCsvServices;
 
 namespace ControllerUpload
 {
@@ -33,7 +31,7 @@ namespace ControllerUpload
                 {
                     var contentResponse = await response.Content.ReadAsStringAsync();
 
-                    
+
                     Console.WriteLine($"{contentResponse}");
                     return Ok($"{contentResponse}");
                 }
@@ -52,10 +50,38 @@ namespace ControllerUpload
             }
         }
 
+        [HttpPost("/CsvSave")]
+        public async Task<IActionResult> SaveCsvAsync(IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest("File can not be empty.");
+                }
+
+                using var memoryStream = new MemoryStream();
+                await file.CopyToAsync(memoryStream);
+                var csvFile = new FileToUpload
+                {
+                    Name = file.FileName,
+                    Data = memoryStream.ToArray()
+                };
+                _db.FilesUploads.Add(csvFile);
+                await _db.SaveChangesAsync();
+                var FileName = csvFile.Name;
+                return Ok($"{FileName} was sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error on file upload: {ex.Message}");
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
         {
-            var uploads = await _db.MacstoDbs.ToListAsync();
+            var uploads = await _db.Devices.ToListAsync();
             if (uploads.Count == 0 || uploads == null)
             {
                 return NotFound("No upload items found.");
@@ -66,7 +92,7 @@ namespace ControllerUpload
         [HttpGet("{Id}")]
         public async Task<ActionResult<FileToUpload>> GetUploadsById(int Id)
         {
-            var itemById = await _db.MacstoDbs.FindAsync(Id);
+            var itemById = await _db.Devices.FindAsync(Id);
             if (itemById == null)
             {
                 return NotFound("item not found");

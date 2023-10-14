@@ -1,1 +1,3 @@
 Remove responsibility from post method >> here now
+
+Connect server at the same database that another server is running 

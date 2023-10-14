@@ -3,7 +3,7 @@ using DeviceContext;
 using MethodsFuncs;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<DeviceDb>(opt => opt.UseSqlite("Data Source=Mac.db"));
+builder.Services.AddDbContext<DeviceDb>(opt => opt.UseSqlite("Data Source=C:\\dev\\database\\Workers.db"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
