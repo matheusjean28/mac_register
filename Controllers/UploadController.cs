@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
 using DeviceContext;
+using SavePureCsvOnDatabaseServices;
 using Microsoft.EntityFrameworkCore;
+using MainDatabaseContext;
+
 
 namespace ControllerUpload
 {
@@ -11,9 +14,11 @@ namespace ControllerUpload
     {
         private readonly HttpClient httpClient;
         private readonly DeviceDb _db;
-        public UploadController(DeviceDb db)
+        private readonly MainDatabase _dbMain;
+        public UploadController(DeviceDb db,MainDatabase dbMain  )
         {
             _db = db;
+            _dbMain = dbMain;
             httpClient = new HttpClient
             {
                 BaseAddress = new Uri("http://localhost:5000/")
@@ -31,7 +36,6 @@ namespace ControllerUpload
                 {
                     var contentResponse = await response.Content.ReadAsStringAsync();
 
-
                     Console.WriteLine($"{contentResponse}");
                     return Ok($"{contentResponse}");
                 }
@@ -46,9 +50,10 @@ namespace ControllerUpload
             {
                 Console.WriteLine($"Error on processing CSV");
                 return BadRequest($"Error on processing CSV");
-
             }
         }
+
+
 
         [HttpPost("/CsvSave")]
         public async Task<IActionResult> SaveCsvAsync(IFormFile file)
@@ -89,6 +94,17 @@ namespace ControllerUpload
             return Ok(uploads);
         }
 
+        [HttpGet("/integer")]
+        public async Task<ActionResult<IEnumerable<FileToUpload>>> GetIntegerUploadsAsync()
+        {
+            var uploads = await _db.FilesUploads.ToListAsync();
+            if (uploads.Count == 0 || uploads == null)
+            {
+                return NotFound("No upload items found.");
+            }
+            return Ok(uploads);
+        }
+
         [HttpGet("{Id}")]
         public async Task<ActionResult<FileToUpload>> GetUploadsById(int Id)
         {
@@ -101,6 +117,27 @@ namespace ControllerUpload
         }
 
 
+
+        [HttpPost("/CreateMac")]
+        public async Task<IActionResult> CreateMacAsync(MainDatabase dbMain) 
+        {
+            SavePureCsvOnDatabase save = new(dbMain);
+            if(await save.SaveOnDatabase()){
+                return Ok("save with sucess");
+            }
+            return BadRequest("an error was ocurred");
+        }
+
+        [HttpGet("/MacMainDatabase")]
+        public async Task<ActionResult<IEnumerable<FileToUpload>>> GetMacMainDatabaseAsync()
+        {
+            var macs = await _dbMain.DevicesToMain.ToListAsync();
+            if (macs.Count == 0 || macs == null)
+            {
+                return NotFound("No upload items found.");
+            }
+            return Ok(macs);
+        }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteFile(int Id)
