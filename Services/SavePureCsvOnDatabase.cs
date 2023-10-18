@@ -1,8 +1,5 @@
 using MacToDatabaseModel;
 using MainDatabaseContext;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using ModelsFileToUpload;
 namespace SavePureCsvOnDatabaseServices
 {
     public class SavePureCsvOnDatabase

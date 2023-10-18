@@ -46,9 +46,9 @@ namespace ControllerUpload
                     return BadRequest($"{errorMessage}");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine($"Error on processing CSV");
+                Console.WriteLine( ex);
                 return BadRequest($"Error on processing CSV");
             }
         }
