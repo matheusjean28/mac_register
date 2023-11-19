@@ -18,6 +18,5 @@ namespace MacToDatabaseModel
 
         public bool RemoteAccess { get; set; }
 
-
     }
 }

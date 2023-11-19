@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using ModelsFileToUpload;
 using DeviceContext;
+using SavePureCsvOnDatabaseServices;
 using Microsoft.EntityFrameworkCore;
-using MethodsFuncs;
-using BackgroundCallProcessCsvServices;
+using MainDatabaseContext;
+
 
 namespace ControllerUpload
 {
@@ -13,44 +14,91 @@ namespace ControllerUpload
     {
         private readonly HttpClient httpClient;
         private readonly DeviceDb _db;
-        public UploadController(DeviceDb db)
+        private readonly MainDatabase _dbMain;
+        public UploadController(DeviceDb db,MainDatabase dbMain  )
         {
             _db = db;
+            _dbMain = dbMain;
             httpClient = new HttpClient
             {
-                BaseAddress = new Uri("http://localhost:5000/recive-process")
+                BaseAddress = new Uri("http://localhost:5000/")
             };
         }
 
-        [HttpGet("getService")]
-        public async Task TriggerCsvProcessing(int id)
-    {
-        try
+        [HttpGet("/CallProcessCsv")]
+        public async Task<ActionResult<IEnumerable<HttpClient>>> TriggerCsvProcessing(int id)
         {
-            HttpResponseMessage response = await httpClient.PostAsync($"recive-process?id={id}", null);
+            try
+            {
+                HttpResponseMessage response = await httpClient.PostAsync($"process-csv?id={id}", null);
 
-            if (response.IsSuccessStatusCode)
-            {
-                var contentResponse = response.Content;
-                Console.WriteLine($"{contentResponse}.");
+                if (response.IsSuccessStatusCode)
+                {
+                    var contentResponse = await response.Content.ReadAsStringAsync();
+
+                    Console.WriteLine($"{contentResponse}");
+                    return Ok($"{contentResponse}");
+                }
+                else
+                {
+                    string errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error on processing CSV");
+                    return BadRequest($"{errorMessage}");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error on processing CSV: {errorMessage}");
+                Console.WriteLine( ex);
+                return BadRequest($"Error on processing CSV");
             }
         }
-        catch (Exception ex)
+
+
+
+        [HttpPost("/CsvSave")]
+        public async Task<IActionResult> SaveCsvAsync(IFormFile file)
         {
-            Console.WriteLine($"Error on processing CSV: {ex.Message}");
+            try
+            {
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest("File can not be empty.");
+                }
+
+                using var memoryStream = new MemoryStream();
+                await file.CopyToAsync(memoryStream);
+                var csvFile = new FileToUpload
+                {
+                    Name = file.FileName,
+                    Data = memoryStream.ToArray()
+                };
+                _db.FilesUploads.Add(csvFile);
+                await _db.SaveChangesAsync();
+                var FileName = csvFile.Name;
+                return Ok($"{FileName} was sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error on file upload: {ex.Message}");
+            }
         }
-    }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FileToUpload>>> GetUploads()
         {
-            var uploads = await _db.MacstoDbs.ToListAsync();
-            if (uploads.Count == 0)
+            var uploads = await _db.Devices.ToListAsync();
+            if (uploads.Count == 0 || uploads == null)
+            {
+                return NotFound("No upload items found.");
+            }
+            return Ok(uploads);
+        }
+
+        [HttpGet("/integer")]
+        public async Task<ActionResult<IEnumerable<FileToUpload>>> GetIntegerUploadsAsync()
+        {
+            var uploads = await _db.FilesUploads.ToListAsync();
+            if (uploads.Count == 0 || uploads == null)
             {
                 return NotFound("No upload items found.");
             }
@@ -60,7 +108,7 @@ namespace ControllerUpload
         [HttpGet("{Id}")]
         public async Task<ActionResult<FileToUpload>> GetUploadsById(int Id)
         {
-            var itemById = await _db.MacstoDbs.FindAsync(Id);
+            var itemById = await _db.Devices.FindAsync(Id);
             if (itemById == null)
             {
                 return NotFound("item not found");
@@ -70,39 +118,26 @@ namespace ControllerUpload
 
 
 
-        //Anotation -- stap on process txt
-        //post method
-        [HttpPost]
-        public async Task<ActionResult> UploadFile(IFormFile file)
+        [HttpPost("/CreateMac")]
+        public async Task<IActionResult> CreateMacAsync(MainDatabase dbMain) 
         {
-            Methods methods = new();
-            BackgroundCallProcessCsv backgroundJobs = new(_db);
-
-            if (file == null || file.Length == 0)
-            {
-                return BadRequest("File could not be empty.");
+            SavePureCsvOnDatabase save = new(dbMain);
+            if(await save.SaveOnDatabase()){
+                return Ok("save with sucess");
             }
-            var FileFormat = file.FileName;
-
-            if (methods.CheckFileExtension(FileFormat))
-            {
-                bool processingResult = await backgroundJobs.ProcessCsvInBackground(file);
-
-                if (processingResult)
-                {
-                    return Ok($"We received your File: {file.FileName}, we are working on it!");
-                }
-                else
-                {
-                    return BadRequest("Failed to process the CSV file.");
-                }
-            }
-            else
-            {
-                return BadRequest("The file must be a .Csv File.");
-            }
+            return BadRequest("an error was ocurred");
         }
 
+        [HttpGet("/MacMainDatabase")]
+        public async Task<ActionResult<IEnumerable<FileToUpload>>> GetMacMainDatabaseAsync()
+        {
+            var macs = await _dbMain.DevicesToMain.ToListAsync();
+            if (macs.Count == 0 || macs == null)
+            {
+                return NotFound("No upload items found.");
+            }
+            return Ok(macs);
+        }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteFile(int Id)

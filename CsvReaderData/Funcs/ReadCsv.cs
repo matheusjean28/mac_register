@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
-using DeviceCsv.Model;
 using Read.Interfaces;
 using DeviceContext;
 using CustomExceptionFun;
+using DeviceModel;
 namespace ReadCsvFuncs
 {
     public class ReadCsv : IRead

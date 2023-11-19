@@ -1,4 +1,3 @@
-using MacToDatabaseModel;
 using DeviceContext;
 using ResponseMacListModel;
 namespace Read.Interfaces
