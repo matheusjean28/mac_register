@@ -1,12 +1,14 @@
+using Model.ProblemTreatWrapper;
+using System.Collections.Generic;
+
 namespace MacToDatabaseInterface.Interface
 {
     public interface IMacToDatabase
     {
-        public int Id { get; set; }
-        public string Model { get; set; }
-        public string Mac { get; set; }
-        public bool Problem { get; set; }
-        public bool RemoteAccess { get; set; }
-
+        int Id { get; set; }
+        string Model { get; set; }
+        string Mac { get; set; }
+        List<ProblemTreatWrapper> Problems { get; set; }
+        bool RemoteAccess { get; set; }
     }
 }

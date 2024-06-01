@@ -15,7 +15,6 @@ namespace SavePureCsvOnDatabaseServices
             MacToDatabase device = new(){
                 Model = "modelo de teste do novo server",
                 Mac= "123456789",
-                Problem = false, 
                 RemoteAccess = true
             };
             try

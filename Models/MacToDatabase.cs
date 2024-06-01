@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using CsvHelper.Configuration.Attributes;
 using MacToDatabaseInterface.Interface;
+using Model.ProblemTreatWrapper;
 
 namespace MacToDatabaseModel
 {
-    public class MacToDatabase : IMacToDatabase
+    public class MacToDatabase
     {
         public int Id { get; set; }
 
@@ -12,11 +13,9 @@ namespace MacToDatabaseModel
         public string Model { get; set; } = string.Empty;
         public string Mac { get; set; } = string.Empty;
 
-        [BooleanTrueValues]
-        public bool Problem { get; set; }
-        [BooleanTrueValues]
+        public List<ProblemTreatWrapper> Problems { get; set; } = new List<ProblemTreatWrapper>();
 
+        [BooleanTrueValues]
         public bool RemoteAccess { get; set; }
-
     }
 }

@@ -36,7 +36,7 @@ namespace MacSave.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Devices", (string)null);
                 });
 
             modelBuilder.Entity("MacToDatabaseModel.MacToDatabase", b =>
@@ -62,7 +62,7 @@ namespace MacSave.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MacstoDbs");
+                    b.ToTable("MacstoDbs", (string)null);
                 });
 
             modelBuilder.Entity("ModelsFileToUpload.FileToUpload", b =>
@@ -81,7 +81,7 @@ namespace MacSave.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FilesUploads");
+                    b.ToTable("FilesUploads", (string)null);
                 });
 #pragma warning restore 612, 618
         }
