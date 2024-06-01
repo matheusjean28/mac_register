@@ -21,5 +21,29 @@ namespace Controller.DeviceActionsController
             var device = await _db.Devices.ToListAsync();
             return device;
         }
+
+        [HttpPost("/CreateDevice")]
+        public async Task<ActionResult<Device>> CreateDevice([FromBody] Device device)
+        {
+            try
+            {
+
+                if (device == null)
+                {
+                    return BadRequest("Device Params cannot be null");
+                }
+                if( device.Model.Length <= 2 ){
+                    Console.WriteLine(device.Model);
+                    return BadRequest("lowersss");
+                }
+                return Ok(device);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        
     }
 }
