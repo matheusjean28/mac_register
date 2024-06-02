@@ -2,6 +2,9 @@ using DeviceContext;
 using DeviceModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Model.ProblemTreatWrapper;
+using Models.UsedAtWrapper.UsedAtWrapper;
 
 namespace Controller.DeviceActionsController
 {
@@ -26,17 +29,44 @@ namespace Controller.DeviceActionsController
         public async Task<ActionResult<Device>> CreateDevice([FromBody] Device device)
         {
             try
-            {
+            {   var problem = new ProblemTreatWrapper{
+                Name = device.Problem[0].Name,
+                Description = device.Problem[0].Description,
+                };
 
+                var usedAtWrapper = new UsedAtWrapper{
+                        
+                    Name = device.UsedAtWrapper[0].Name,
+                };
+                
                 if (device == null)
                 {
                     return BadRequest("Device Params cannot be null");
                 }
-                if( device.Model.Length <= 2 ){
-                    Console.WriteLine(device.Model);
-                    return BadRequest("lowersss");
+                if ( IsValidParam(device.Model) && IsValidParam(device.Mac) )
+                {
+                    
+                    return BadRequest("somenthing went error");
                 }
-                return Ok(device);
+                
+                // var problem = new ProblemTreatWrapper{
+                // Name = device.Problem[0].Name,
+                // Description = device.Problem[0].Description,
+                // };
+                
+                
+                
+                return Ok(problem);
+
+
+
+
+
+
+
+
+                
+                
             }
             catch (Exception ex)
             {
@@ -44,6 +74,36 @@ namespace Controller.DeviceActionsController
             }
         }
 
-        
+        public bool IsValidParam(string param)
+        {
+            if (param.Length == 0 || param.Length < 5)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        //         {
+        //     "id": 0,
+        //     "model": "string",
+        //     "mac": "string",
+        //     "remoteAcess": true,
+        //     "problem": [
+        //       {
+        //         "id": 0,
+        //         "name": "string",
+        //         "description": "string"
+        //       }
+        //     ],
+        //     "usedAtWrapper": [
+        //       {
+        //         "id": 0,
+        //         "name": "string"
+        //       }
+        //     ]
+        //   }
     }
 }
