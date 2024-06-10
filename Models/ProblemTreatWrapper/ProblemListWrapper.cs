@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DeviceModel;
 
 namespace Model.ProblemTreatWrapper
 {
@@ -7,17 +8,15 @@ namespace Model.ProblemTreatWrapper
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public string Id { get; set; }
+
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public ProblemTreatWrapper() { }
+        [ForeignKey("DeviceId")]
+        public string DeviceId { get; set; }
+        public DeviceCreate Device { get; set; }
 
-        public ProblemTreatWrapper(int id, string name, string description)
-        {
-            Id = id;
-            Name = name;
-            Description = description;
-        }
+        public ProblemTreatWrapper() { }
     }
 }

@@ -5,17 +5,17 @@ using Models.UsedAtWrapper.UsedAtWrapper;
 
 namespace DeviceModel;
 
-public class Device
+public class DeviceCreate
 {
-    [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    [Key]
+    public string DeviceId { get; set; }
 
     public string Model { get; set; } = string.Empty;
     public string Mac { get; set; } = string.Empty;
     public bool RemoteAcess { get; set; } = false;
-    public List<ProblemTreatWrapper> Problem { get; set; }
-    public List<UsedAtWrapper> UsedAtWrapper { get; set; }
+    public List<ProblemTreatWrapper> Problems { get; set; }
+    public List<UsedAtWrapper> UsedAtWrappers { get; set; }
 }
 
 

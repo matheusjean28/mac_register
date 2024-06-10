@@ -19,70 +19,42 @@ namespace Controller.DeviceActionsController
         }
 
         [HttpGet("/GetDevices")]
-        public async Task<ActionResult<IEnumerable<Device>>> GetDevices()
+        public async Task<ActionResult<IEnumerable<DeviceCreate>>> GetDevices()
         {
             var device = await _db.Devices.ToListAsync();
             return device;
         }
 
         [HttpPost("/CreateDevice")]
-        public async Task<ActionResult<Device>> CreateDevice([FromBody] Device device)
+        public async Task<ActionResult<DeviceCreate>> CreateDevice([FromBody] DeviceCreate device)
         {
             try
-            {   var problem = new ProblemTreatWrapper{
-                Name = device.Problem[0].Name,
-                Description = device.Problem[0].Description,
+            {
+                var problem = new ProblemTreatWrapper
+                {
+                    Name = device.Problems[0].Name,
+                    Description = device.Problems[0].Description,
                 };
 
-                var usedAtWrapper = new UsedAtWrapper{
-                        
-                    Name = device.UsedAtWrapper[0].Name,
-                };
-                
+                var usedAtWrapper = new UsedAtWrapper { Name = device.UsedAtWrappers[0].Name, };
+
                 if (device == null)
                 {
                     return BadRequest("Device Params cannot be null");
                 }
-                if ( IsValidParam(device.Model) && IsValidParam(device.Mac) )
-                {
-                    
-                    return BadRequest("somenthing went error");
-                }
-                
+
                 // var problem = new ProblemTreatWrapper{
                 // Name = device.Problem[0].Name,
                 // Description = device.Problem[0].Description,
                 // };
-                
-                
-                
+
+
+
                 return Ok(problem);
-
-
-
-
-
-
-
-
-                
-                
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }
-        }
-
-        public bool IsValidParam(string param)
-        {
-            if (param.Length == 0 || param.Length < 5)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
             }
         }
 

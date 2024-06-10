@@ -12,14 +12,14 @@ namespace SavePureCsvOnDatabaseServices
 
         public async Task<Boolean> SaveOnDatabase()
         {
-            MacToDatabase device = new(){
+            MacToDatabase devicetoDatabase = new(){
                 Model = "modelo de teste do novo server",
                 Mac= "123456789",
                 RemoteAccess = true
             };
             try
             {
-             await _db.DevicesToMain.AddAsync(device);
+             await _db.DevicesToMain.AddAsync(devicetoDatabase);
              await _db.SaveChangesAsync();
              return true;   
             }

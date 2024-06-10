@@ -2,26 +2,27 @@
 
 #nullable disable
 
-namespace MacSave.Migrations
+namespace MacSave.Migrations.MainDatabaseMigrations
 {
     /// <inheritdoc />
-    public partial class DbStart : Migration
+    public partial class RestartMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Devices",
+                name: "DevicesToMain",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Model = table.Column<string>(type: "TEXT", nullable: false),
-                    Mac = table.Column<string>(type: "TEXT", nullable: false)
+                    Model = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Mac = table.Column<string>(type: "TEXT", nullable: false),
+                    RemoteAccess = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Devices", x => x.Id);
+                    table.PrimaryKey("PK_DevicesToMain", x => x.Id);
                 });
         }
 
@@ -29,7 +30,7 @@ namespace MacSave.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Devices");
+                name: "DevicesToMain");
         }
     }
 }

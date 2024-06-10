@@ -13,7 +13,7 @@ namespace MacToDatabaseModel
         public string Model { get; set; } = string.Empty;
         public string Mac { get; set; } = string.Empty;
 
-        public List<ProblemTreatWrapper> Problems { get; set; } = new List<ProblemTreatWrapper>();
+        // public List<ProblemTreatWrapper> Problems { get; set; } = new List<ProblemTreatWrapper>();
 
         [BooleanTrueValues]
         public bool RemoteAccess { get; set; }

@@ -37,7 +37,7 @@ namespace ReadCsvFuncs
             using var csv = new CsvReader(reader, config);
 
 
-            await foreach (var device in csv.GetRecordsAsync<Device>())
+            await foreach (var device in csv.GetRecordsAsync<DeviceCreate>())
             {
                 try
                 {
