@@ -10,6 +10,7 @@ builder.Services.AddDbContext<MainDatabase>(opt => opt.UseSqlite("Data Source=C:
 builder.Services.AddCors();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

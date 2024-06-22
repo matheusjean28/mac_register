@@ -2,6 +2,7 @@
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MacSave.Migrations
 {
     [DbContext(typeof(DeviceDb))]
-    partial class DeviceDbModelSnapshot : ModelSnapshot
+    [Migration("20240616171806_CreateNewTablesUsedAtAndProblem")]
+    partial class CreateNewTablesUsedAtAndProblem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
@@ -128,31 +131,31 @@ namespace MacSave.Migrations
 
             modelBuilder.Entity("Model.ProblemTreatWrapper.ProblemTreatWrapper", b =>
                 {
-                    b.HasOne("DeviceModel.DeviceCreate", "DeviceCreate")
+                    b.HasOne("DeviceModel.DeviceCreate", "DeviceOwner")
                         .WithMany("Problems")
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DeviceCreate");
+                    b.Navigation("DeviceOwner");
                 });
 
             modelBuilder.Entity("Models.UsedAtWrapper.UsedAtWrapper.UsedAtWrapper", b =>
                 {
-                    b.HasOne("DeviceModel.DeviceCreate", "DeviceCreate")
-                        .WithMany("UsedAtClients")
+                    b.HasOne("DeviceModel.DeviceCreate", "DeviceOwner")
+                        .WithMany("UsedAtWrappers")
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DeviceCreate");
+                    b.Navigation("DeviceOwner");
                 });
 
             modelBuilder.Entity("DeviceModel.DeviceCreate", b =>
                 {
                     b.Navigation("Problems");
 
-                    b.Navigation("UsedAtClients");
+                    b.Navigation("UsedAtWrappers");
                 });
 #pragma warning restore 612, 618
         }

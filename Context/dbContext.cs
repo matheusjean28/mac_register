@@ -1,9 +1,9 @@
 using DeviceModel;
 using MacToDatabaseModel;
 using Microsoft.EntityFrameworkCore;
-using ModelsFileToUpload;
-using Models.UsedAtWrapper.UsedAtWrapper;
 using Model.ProblemTreatWrapper;
+using Models.UsedAtWrapper.UsedAtWrapper;
+using ModelsFileToUpload;
 
 namespace DeviceContext
 {
@@ -13,49 +13,28 @@ namespace DeviceContext
             : base(options) { }
 
         public DbSet<DeviceCreate> Devices => Set<DeviceCreate>();
+        public DbSet<ProblemTreatWrapper> Problems => Set<ProblemTreatWrapper>();
+        public DbSet<UsedAtWrapper> UsedAtClient => Set<UsedAtWrapper>();
+
+        //items to upload and threat data
         public DbSet<FileToUpload> FilesUploads => Set<FileToUpload>();
         public DbSet<MacToDatabase> MacstoDbs => Set<MacToDatabase>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DeviceCreate>(entity =>
-            {
-                entity.HasKey(d => d.DeviceId);
-                entity.Property(d => d.DeviceId)
-                      .ValueGeneratedOnAdd();
+            modelBuilder.Entity<DeviceCreate>()
+            .HasMany(e => e.Problems)
+            .WithOne(e => e.DeviceCreate)
+            .HasForeignKey(e => e.DeviceId)
+            .IsRequired();
 
-                entity.HasMany(d => d.Problems)
-                      .WithOne(p => p.Device)
-                      .HasForeignKey(p => p.DeviceId);
+            modelBuilder.Entity<DeviceCreate>()
+             .HasMany(e => e.UsedAtClients)
+            .WithOne(e => e.DeviceCreate)
+            .HasForeignKey(e => e.DeviceId)
+            .IsRequired();
 
-                entity.HasMany(d => d.UsedAtWrappers)
-                      .WithOne(u => u.Device)
-                      .HasForeignKey(u => u.DeviceId);
-            });
 
-            modelBuilder.Entity<ProblemTreatWrapper>(entity =>
-            {
-                entity.HasKey(p => p.Id);
-                entity.Property(p => p.Id)
-                      .ValueGeneratedOnAdd();
-            });
-
-            modelBuilder.Entity<UsedAtWrapper>(entity =>
-            {
-                entity.HasKey(u => u.Id);
-                entity.Property(u => u.Id)
-                      .ValueGeneratedOnAdd();
-            });
-
-            modelBuilder.Entity<FileToUpload>(entity =>
-            {
-                entity.HasKey(f => f.Id);
-            });
-
-            modelBuilder.Entity<MacToDatabase>(entity =>
-            {
-                entity.HasKey(m => m.Id);
-            });
         }
     }
 }

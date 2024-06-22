@@ -1,14 +1,16 @@
 using DeviceContext;
 using DeviceModel;
+using mac_register.Models.FullDeviceCreate;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using Model.ProblemTreatWrapper;
+using Models.UsedAtWrapper;
+using Microsoft.EntityFrameworkCore;
 using Models.UsedAtWrapper.UsedAtWrapper;
 
 namespace Controller.DeviceActionsController
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class DeviceActionsController : ControllerBase
     {
         private readonly DeviceDb _db;
@@ -18,64 +20,52 @@ namespace Controller.DeviceActionsController
             _db = db;
         }
 
-        [HttpGet("/GetDevices")]
-        public async Task<ActionResult<IEnumerable<DeviceCreate>>> GetDevices()
+        [HttpPost("CreateDevice")]
+        public async Task<ActionResult<FullDeviceCreate>> CreateDevice([FromBody] FullDeviceCreate device)
         {
-            var device = await _db.Devices.ToListAsync();
-            return device;
-        }
+            if (device == null)
+            {
+                return BadRequest("Device cannot be null");
+            }
 
-        [HttpPost("/CreateDevice")]
-        public async Task<ActionResult<DeviceCreate>> CreateDevice([FromBody] DeviceCreate device)
-        {
+            using var transaction = await _db.Database.BeginTransactionAsync();
             try
             {
-                var problem = new ProblemTreatWrapper
+                var deviceMac = new DeviceCreate
                 {
-                    Name = device.Problems[0].Name,
-                    Description = device.Problems[0].Description,
+                    Model = device.Model,
+                    Mac = device.Mac,
+                    RemoteAcess = device.RemoteAcess,
                 };
 
-                var usedAtWrapper = new UsedAtWrapper { Name = device.UsedAtWrappers[0].Name, };
+                await _db.Devices.AddAsync(deviceMac);
+                await _db.SaveChangesAsync();
+                await transaction.CommitAsync();
 
-                if (device == null)
+                var problem = new ProblemTreatWrapper
                 {
-                    return BadRequest("Device Params cannot be null");
-                }
+                    Name = device.Name,
+                    Description = device.Description,
+                    DeviceId = deviceMac.DeviceId
+                };
+                deviceMac.AddProblems(problem);
 
-                // var problem = new ProblemTreatWrapper{
-                // Name = device.Problem[0].Name,
-                // Description = device.Problem[0].Description,
-                // };
+                var usedAt = new UsedAtWrapper
+                {
+                    Name = device.UserName,
+                    DeviceId = deviceMac.DeviceId
+                };
+                deviceMac.AddClients(usedAt);
 
+                await _db.SaveChangesAsync();
 
-
-                return Ok(problem);
+                return Ok(deviceMac);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                await transaction.RollbackAsync();
+                return BadRequest($"Failed to create device: {ex.Message}");
             }
         }
-
-        //         {
-        //     "id": 0,
-        //     "model": "string",
-        //     "mac": "string",
-        //     "remoteAcess": true,
-        //     "problem": [
-        //       {
-        //         "id": 0,
-        //         "name": "string",
-        //         "description": "string"
-        //       }
-        //     ],
-        //     "usedAtWrapper": [
-        //       {
-        //         "id": 0,
-        //         "name": "string"
-        //       }
-        //     ]
-        //   }
     }
 }

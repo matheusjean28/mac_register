@@ -11,8 +11,8 @@ namespace Models.UsedAtWrapper.UsedAtWrapper
         public string Id { get; set; }
         public string Name { get; set; }
 
-        [ForeignKey("DeviceId")]
+        [ForeignKey("DeviceCreate")]
         public string DeviceId { get; set; }
-        public DeviceCreate Device { get; set; }
+        public DeviceCreate DeviceCreate { get; set; }  = null!;
     }
 }

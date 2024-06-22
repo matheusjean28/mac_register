@@ -4,7 +4,7 @@ using DeviceModel;
 
 namespace Model.ProblemTreatWrapper
 {
-    public class ProblemTreatWrapper
+     public class ProblemTreatWrapper
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,10 +13,9 @@ namespace Model.ProblemTreatWrapper
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        [ForeignKey("DeviceId")]
-        public string DeviceId { get; set; }
-        public DeviceCreate Device { get; set; }
+        [ForeignKey("DeviceCreate")]
+        public required string DeviceId { get; set; }
+        public DeviceCreate DeviceCreate { get; set; }  = null!;
 
-        public ProblemTreatWrapper() { }
     }
 }

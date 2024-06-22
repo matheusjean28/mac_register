@@ -2,6 +2,7 @@
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MacSave.Migrations
 {
     [DbContext(typeof(DeviceDb))]
-    partial class DeviceDbModelSnapshot : ModelSnapshot
+    [Migration("20240622201631_adjustDatabaseToAddListOfItems")]
+    partial class adjustDatabaseToAddListOfItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
@@ -75,13 +78,16 @@ namespace MacSave.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DeviceOwnerDeviceId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeviceId");
+                    b.HasIndex("DeviceOwnerDeviceId");
 
                     b.ToTable("Problems");
                 });
@@ -128,19 +134,17 @@ namespace MacSave.Migrations
 
             modelBuilder.Entity("Model.ProblemTreatWrapper.ProblemTreatWrapper", b =>
                 {
-                    b.HasOne("DeviceModel.DeviceCreate", "DeviceCreate")
+                    b.HasOne("DeviceModel.DeviceCreate", "DeviceOwner")
                         .WithMany("Problems")
-                        .HasForeignKey("DeviceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DeviceOwnerDeviceId");
 
-                    b.Navigation("DeviceCreate");
+                    b.Navigation("DeviceOwner");
                 });
 
             modelBuilder.Entity("Models.UsedAtWrapper.UsedAtWrapper.UsedAtWrapper", b =>
                 {
                     b.HasOne("DeviceModel.DeviceCreate", "DeviceCreate")
-                        .WithMany("UsedAtClients")
+                        .WithMany("UsedAtClient")
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -152,7 +156,7 @@ namespace MacSave.Migrations
                 {
                     b.Navigation("Problems");
 
-                    b.Navigation("UsedAtClients");
+                    b.Navigation("UsedAtClient");
                 });
 #pragma warning restore 612, 618
         }
