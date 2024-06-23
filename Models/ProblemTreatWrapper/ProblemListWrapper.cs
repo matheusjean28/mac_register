@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations.Schema;
 using DeviceModel;
 
@@ -15,6 +16,7 @@ namespace Model.ProblemTreatWrapper
 
         [ForeignKey("DeviceCreate")]
         public required string DeviceId { get; set; }
+        [JsonIgnore]
         public DeviceCreate DeviceCreate { get; set; }  = null!;
 
     }

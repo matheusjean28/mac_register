@@ -2,9 +2,9 @@ using DeviceContext;
 using DeviceModel;
 using mac_register.Models.FullDeviceCreate;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Model.ProblemTreatWrapper;
 using Models.UsedAtWrapper;
-using Microsoft.EntityFrameworkCore;
 using Models.UsedAtWrapper.UsedAtWrapper;
 
 namespace Controller.DeviceActionsController
@@ -20,50 +20,75 @@ namespace Controller.DeviceActionsController
             _db = db;
         }
 
+
+        [HttpGet("GetAllDevices")]
+        public async Task<ActionResult<IEnumerable<DeviceCreate>>> GetAllDevices()
+        {
+            try
+            {
+                var devices = await _db.Devices
+                    .Include(d => d.Problems)
+                    .Include(d => d.UsedAtClients)
+                    .ToListAsync();
+
+                return Ok(devices);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to retrieve devices: {ex.Message}");
+            }
+        }
+
+
+
         [HttpPost("CreateDevice")]
-        public async Task<ActionResult<FullDeviceCreate>> CreateDevice([FromBody] FullDeviceCreate device)
+        public async Task<ActionResult<FullDeviceCreate>> CreateDevice(
+            [FromBody] FullDeviceCreate device
+        )
         {
             if (device == null)
             {
                 return BadRequest("Device cannot be null");
             }
 
-            using var transaction = await _db.Database.BeginTransactionAsync();
             try
             {
+                //creating a device and save it
                 var deviceMac = new DeviceCreate
                 {
                     Model = device.Model,
                     Mac = device.Mac,
                     RemoteAcess = device.RemoteAcess,
                 };
-
                 await _db.Devices.AddAsync(deviceMac);
                 await _db.SaveChangesAsync();
-                await transaction.CommitAsync();
 
+                //instance a new problem and save it    
                 var problem = new ProblemTreatWrapper
                 {
                     Name = device.Name,
                     Description = device.Description,
                     DeviceId = deviceMac.DeviceId
                 };
-                deviceMac.AddProblems(problem);
+                deviceMac.Problems.Add(problem);
 
+
+                //instance a new user and save it    
                 var usedAt = new UsedAtWrapper
                 {
                     Name = device.UserName,
                     DeviceId = deviceMac.DeviceId
                 };
-                deviceMac.AddClients(usedAt);
+                deviceMac.UsedAtClients.Add(usedAt);
 
                 await _db.SaveChangesAsync();
 
-                return Ok(deviceMac);
+                var responde = new {deviceMac, usedAt, problem};
+
+                return Ok(responde);
             }
             catch (Exception ex)
             {
-                await transaction.RollbackAsync();
                 return BadRequest($"Failed to create device: {ex.Message}");
             }
         }

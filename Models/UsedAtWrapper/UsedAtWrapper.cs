@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using DeviceModel;
 
 namespace Models.UsedAtWrapper.UsedAtWrapper
@@ -13,6 +14,8 @@ namespace Models.UsedAtWrapper.UsedAtWrapper
 
         [ForeignKey("DeviceCreate")]
         public string DeviceId { get; set; }
-        public DeviceCreate DeviceCreate { get; set; }  = null!;
+
+        [JsonIgnore]
+        public DeviceCreate DeviceCreate { get; set; } = null!;
     }
 }
