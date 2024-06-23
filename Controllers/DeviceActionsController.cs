@@ -20,15 +20,34 @@ namespace Controller.DeviceActionsController
             _db = db;
         }
 
-
         [HttpGet("GetAllDevices")]
-        public async Task<ActionResult<IEnumerable<DeviceCreate>>> GetAllDevices()
+        public async Task<ActionResult<IEnumerable<object>>> GetAllDevices()
         {
             try
             {
-                var devices = await _db.Devices
-                    .Include(d => d.Problems)
+                var devices = await _db
+                    .Devices.Include(d => d.Problems)
                     .Include(d => d.UsedAtClients)
+                    .Select(d => new
+                    {
+                        d.DeviceId,
+                        d.Model,
+                        d.Mac,
+                        d.RemoteAcess,
+                        Problems = d.Problems.Select(p => new
+                        {
+                            p.Id,
+                            p.Name,
+                            p.Description,
+                            p.DeviceId
+                        }),
+                        UsedAtClients = d.UsedAtClients.Select(u => new
+                        {
+                            u.Id,
+                            u.Name,
+                            u.DeviceId
+                        })
+                    })
                     .ToListAsync();
 
                 return Ok(devices);
@@ -38,8 +57,6 @@ namespace Controller.DeviceActionsController
                 return BadRequest($"Failed to retrieve devices: {ex.Message}");
             }
         }
-
-
 
         [HttpPost("CreateDevice")]
         public async Task<ActionResult<FullDeviceCreate>> CreateDevice(
@@ -63,7 +80,7 @@ namespace Controller.DeviceActionsController
                 await _db.Devices.AddAsync(deviceMac);
                 await _db.SaveChangesAsync();
 
-                //instance a new problem and save it    
+                //instance a new problem and save it
                 var problem = new ProblemTreatWrapper
                 {
                     Name = device.Name,
@@ -72,8 +89,7 @@ namespace Controller.DeviceActionsController
                 };
                 deviceMac.Problems.Add(problem);
 
-
-                //instance a new user and save it    
+                //instance a new user and save it
                 var usedAt = new UsedAtWrapper
                 {
                     Name = device.UserName,
@@ -83,7 +99,12 @@ namespace Controller.DeviceActionsController
 
                 await _db.SaveChangesAsync();
 
-                var responde = new {deviceMac, usedAt, problem};
+                var responde = new
+                {
+                    deviceMac,
+                    usedAt,
+                    problem
+                };
 
                 return Ok(responde);
             }
