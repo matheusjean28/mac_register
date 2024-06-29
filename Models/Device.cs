@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using MacSave.Models.SinalHistory;
 using Model.ProblemTreatWrapper;
 using Models.UsedAtWrapper.UsedAtWrapper;
 
@@ -24,6 +25,9 @@ public class DeviceCreate
     [JsonIgnore]
     public ICollection<UsedAtWrapper> UsedAtClients { get; set; } = new List<UsedAtWrapper>();
 
+    [JsonIgnore]
+    public ICollection<SinalHistory> SinalHistory { get; set; } = new List<SinalHistory>();
+
     public void AddProblems(ProblemTreatWrapper problem)
     {
         Problems.Add(problem);
@@ -33,8 +37,12 @@ public class DeviceCreate
     {
         UsedAtClients.Add(user);
     }
-}
 
+    public void AddSinal(SinalHistory sinal)
+    {
+        SinalHistory.Add(sinal);
+    }
+}
 
 
 // checkDate, mac, model, problem, remoteAccess, signalRX id: 123, name

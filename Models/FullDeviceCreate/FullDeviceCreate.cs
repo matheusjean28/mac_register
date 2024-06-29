@@ -20,6 +20,10 @@ namespace mac_register.Models.FullDeviceCreate
 
         //map array of the old users that come from array of params
         public string UserName { get; set; }
+
+        //map to array of SinalHistory
+        public string SinalRX { get; set; }
+        public string SinalTX { get; set; }
     }
 }
 

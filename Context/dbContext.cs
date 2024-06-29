@@ -1,4 +1,5 @@
 using DeviceModel;
+using MacSave.Models.SinalHistory;
 using MacToDatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using Model.ProblemTreatWrapper;
@@ -16,6 +17,8 @@ namespace DeviceContext
         public DbSet<ProblemTreatWrapper> Problems => Set<ProblemTreatWrapper>();
         public DbSet<UsedAtWrapper> UsedAtClient => Set<UsedAtWrapper>();
 
+        public DbSet<SinalHistory> Histories => Set<SinalHistory>();
+
         //items to upload and threat data
         public DbSet<FileToUpload> FilesUploads => Set<FileToUpload>();
         public DbSet<MacToDatabase> MacstoDbs => Set<MacToDatabase>();
@@ -30,6 +33,12 @@ namespace DeviceContext
 
             modelBuilder.Entity<DeviceCreate>()
              .HasMany(e => e.UsedAtClients)
+            .WithOne(e => e.DeviceCreate)
+            .HasForeignKey(e => e.DeviceId)
+            .IsRequired();
+
+            modelBuilder.Entity<DeviceCreate>()
+            .HasMany(e => e.SinalHistory)
             .WithOne(e => e.DeviceCreate)
             .HasForeignKey(e => e.DeviceId)
             .IsRequired();

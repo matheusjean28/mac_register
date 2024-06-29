@@ -1,4 +1,5 @@
 using DeviceContext;
+using MacSave.Models.SinalHistory;
 using DeviceModel;
 using mac_register.Models.FullDeviceCreate;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,7 @@ namespace Controller.DeviceActionsController
                 var devices = await _db
                     .Devices.Include(d => d.Problems)
                     .Include(d => d.UsedAtClients)
+                    .Include(d => d.SinalHistory)
                     .Select(d => new
                     {
                         d.DeviceId,
@@ -46,6 +48,12 @@ namespace Controller.DeviceActionsController
                             u.Id,
                             u.Name,
                             u.DeviceId
+                        }),
+                        SinalHistory = d.SinalHistory.Select(s => new{
+                            s.Id,
+                            s.SinalRX,
+                            s.SinalTX,
+                            s.Timestamp
                         })
                     })
                     .ToListAsync();
@@ -88,6 +96,14 @@ namespace Controller.DeviceActionsController
                     DeviceId = deviceMac.DeviceId
                 };
                 deviceMac.Problems.Add(problem);
+
+                var sinalHistory = new SinalHistory
+                {
+                    SinalRX = device.SinalRX,
+                    SinalTX = device.SinalTX,
+                    DeviceId = deviceMac.DeviceId,
+                };
+                deviceMac.AddSinal(sinalHistory);
 
                 //instance a new user and save it
                 var usedAt = new UsedAtWrapper

@@ -5,7 +5,7 @@
 namespace MacSave.Migrations
 {
     /// <inheritdoc />
-    public partial class RestartMigration : Migration
+    public partial class CreateTablesAtNewEnvarioment : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,7 +54,7 @@ namespace MacSave.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProblemTreatWrapper",
+                name: "Problems",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -64,9 +64,9 @@ namespace MacSave.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProblemTreatWrapper", x => x.Id);
+                    table.PrimaryKey("PK_Problems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProblemTreatWrapper_Devices_DeviceId",
+                        name: "FK_Problems_Devices_DeviceId",
                         column: x => x.DeviceId,
                         principalTable: "Devices",
                         principalColumn: "DeviceId",
@@ -74,7 +74,7 @@ namespace MacSave.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UsedAtWrapper",
+                name: "UsedAtClient",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -83,9 +83,9 @@ namespace MacSave.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UsedAtWrapper", x => x.Id);
+                    table.PrimaryKey("PK_UsedAtClient", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UsedAtWrapper_Devices_DeviceId",
+                        name: "FK_UsedAtClient_Devices_DeviceId",
                         column: x => x.DeviceId,
                         principalTable: "Devices",
                         principalColumn: "DeviceId",
@@ -93,13 +93,13 @@ namespace MacSave.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProblemTreatWrapper_DeviceId",
-                table: "ProblemTreatWrapper",
+                name: "IX_Problems_DeviceId",
+                table: "Problems",
                 column: "DeviceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsedAtWrapper_DeviceId",
-                table: "UsedAtWrapper",
+                name: "IX_UsedAtClient_DeviceId",
+                table: "UsedAtClient",
                 column: "DeviceId");
         }
 
@@ -113,10 +113,10 @@ namespace MacSave.Migrations
                 name: "MacstoDbs");
 
             migrationBuilder.DropTable(
-                name: "ProblemTreatWrapper");
+                name: "Problems");
 
             migrationBuilder.DropTable(
-                name: "UsedAtWrapper");
+                name: "UsedAtClient");
 
             migrationBuilder.DropTable(
                 name: "Devices");

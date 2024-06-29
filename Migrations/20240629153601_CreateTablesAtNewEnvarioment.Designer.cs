@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MacSave.Migrations
 {
     [DbContext(typeof(DeviceDb))]
-    [Migration("20240623190152_JsonSerializeConfig")]
-    partial class JsonSerializeConfig
+    [Migration("20240629153601_CreateTablesAtNewEnvarioment")]
+    partial class CreateTablesAtNewEnvarioment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
