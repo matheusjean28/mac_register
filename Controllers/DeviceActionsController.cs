@@ -5,7 +5,6 @@ using mac_register.Models.FullDeviceCreate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.ProblemTreatWrapper;
-using Models.UsedAtWrapper;
 using Models.UsedAtWrapper.UsedAtWrapper;
 
 namespace Controller.DeviceActionsController
