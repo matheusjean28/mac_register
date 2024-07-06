@@ -1,7 +1,7 @@
-using MacSave.Models.Categories;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using MacSave.Models.Categories;
 using MacSave.Models.Categories.OperationModelEnums;
 
 namespace MacSave.Models.Categories.Models_of_Devices
@@ -18,9 +18,11 @@ namespace MacSave.Models.Categories.Models_of_Devices
         public OperationModelEnum OperationMode { get; set; } = OperationModelEnum.None;
 
         [ForeignKey("Maker")]
-        public  string MakerId { get; set; }
+        public required string MakerId { get; set; }
 
-        [JsonIgnore]
-        public Maker Maker { get; set; } = null!;
+        
+        //comented to avoid error at controller, must be fixed
+        // [JsonIgnore]
+        // public Maker Maker { get; set; } = null!;
     }
 }

@@ -18,12 +18,24 @@ namespace MacSave.Controllers
         }
 
         [HttpGet]
-        [Route("/GetAllModels")]
-        public async Task<ActionResult<Maker>> GetAllModels()
+        [Route("/GetAllMakers")]
+        public async Task<ActionResult<Maker>> GetAllMakers()
         {
             try
             {
-                var allMakers = await _db.Makers.ToListAsync();
+                var allMakers = await _db
+                    .Makers.Include(m => m.DeviceCategories).Select(m => new {
+                        m.MakerId,
+                        m.MakerName,
+                        DeviceCategories = m.DeviceCategories.Select(
+                            m => new {
+                                m.DeviceCategoryId, 
+                                m.DeviceCategoryName, 
+                                m.OperationMode
+                            }
+                        ),
+
+                    }).ToListAsync();
                 return Ok(allMakers);
             }
             catch (Exception ex)
@@ -91,6 +103,7 @@ namespace MacSave.Controllers
                 {
                     return BadRequest("Category cannot be empty");
                 }
+
                 if (
                     await _db.DeviceCategories.AnyAsync(x =>
                         x.DeviceCategoryName == category.DeviceCategoryName
@@ -99,7 +112,9 @@ namespace MacSave.Controllers
                 {
                     return BadRequest("Category Already Exist");
                 }
-                if (await _db.Makers.FindAsync(category.MakerId) == null)
+
+                var maker = await _db.Makers.FindAsync(category.MakerId);
+                if (maker == null)
                 {
                     return BadRequest("Owner Is a Not Valid Id");
                 }
@@ -107,22 +122,20 @@ namespace MacSave.Controllers
                 var categoryCleaned = new DeviceCategory
                 {
                     DeviceCategoryName = category.DeviceCategoryName,
-                    MakerId = category.MakerId,
+                    MakerId = maker.MakerId,
                     OperationMode = category.OperationMode,
                     DeviceCategoryId = Guid.NewGuid().ToString()
                 };
-                await _db.DeviceCategories.AddAsync(categoryCleaned);
-                await _db.SaveChangesAsync();
 
-                var makerAdd = new Maker { };
-                makerAdd.AddDeviceCategory(category);
+                await _db.DeviceCategories.AddAsync(categoryCleaned);
+                maker.AddDeviceCategory(categoryCleaned);
                 await _db.SaveChangesAsync();
 
                 return Ok(categoryCleaned);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 

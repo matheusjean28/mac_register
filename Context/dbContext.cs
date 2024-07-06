@@ -52,11 +52,11 @@ namespace DeviceContext
             .Property( e => e.MakerId)
             .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<Maker>()
-            .HasMany(m => m.DeviceCategories)
-            .WithOne(m => m.Maker)
-            .HasForeignKey(m => m.MakerId)
-            .IsRequired();
+            // modelBuilder.Entity<Maker>()
+            // .HasMany(m => m.DeviceCategories)
+            // .WithOne(m => m.Maker)
+            // .HasForeignKey(m => m.MakerId)
+            // .IsRequired();
 
 
         }
