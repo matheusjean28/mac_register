@@ -3,6 +3,7 @@ using MacSave.Models.Categories;
 using MacSave.Models.Categories.Models_of_Devices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MacSave.Funcs;
 
 namespace MacSave.Controllers
 {
@@ -11,9 +12,11 @@ namespace MacSave.Controllers
     public class CateriesActions : ControllerBase
     {
         private readonly DeviceDb _db;
+        private readonly SanetizerInputs _sanetizerInputs;
 
-        public CateriesActions(DeviceDb db)
+        public CateriesActions(DeviceDb db, SanetizerInputs sanetizerInputs)
         {
+            _sanetizerInputs = sanetizerInputs;
             _db = db;
         }
 
@@ -75,6 +78,8 @@ namespace MacSave.Controllers
                     return BadRequest("Maker Already Exist");
                 }
 
+
+                
                 var makerCleaned = new Maker
                 {
                     MakerName = maker.MakerName,
