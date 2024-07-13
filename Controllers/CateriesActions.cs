@@ -1,9 +1,9 @@
 using DeviceContext;
+using MacSave.Funcs.RegexSanitizer;
 using MacSave.Models.Categories;
 using MacSave.Models.Categories.Models_of_Devices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MacSave.Funcs;
 
 namespace MacSave.Controllers
 {
@@ -27,18 +27,19 @@ namespace MacSave.Controllers
             try
             {
                 var allMakers = await _db
-                    .Makers.Include(m => m.DeviceCategories).Select(m => new {
+                    .Makers.Include(m => m.DeviceCategories)
+                    .Select(m => new
+                    {
                         m.MakerId,
                         m.MakerName,
-                        DeviceCategories = m.DeviceCategories.Select(
-                            m => new {
-                                m.DeviceCategoryId, 
-                                m.DeviceCategoryName, 
-                                m.OperationMode
-                            }
-                        ),
-
-                    }).ToListAsync();
+                        DeviceCategories = m.DeviceCategories.Select(m => new
+                        {
+                            m.DeviceCategoryId,
+                            m.DeviceCategoryName,
+                            m.OperationMode
+                        }),
+                    })
+                    .ToListAsync();
                 return Ok(allMakers);
             }
             catch (Exception ex)
@@ -64,10 +65,12 @@ namespace MacSave.Controllers
 
         [HttpPost]
         [Route("/CreateMaker")]
-        public async Task<ActionResult<Maker>> CreateMaker([FromBody] Maker maker)
+        public async Task<ActionResult<Maker>> CreateMaker([FromBody] Maker makerDirty)
         {
             try
             {
+                var maker = await _sanetizerInputs.IterateProperties(makerDirty, true);
+
                 if (maker == null)
                 {
                     return BadRequest("Maker Cannot be empyt");
@@ -78,8 +81,6 @@ namespace MacSave.Controllers
                     return BadRequest("Maker Already Exist");
                 }
 
-
-                
                 var makerCleaned = new Maker
                 {
                     MakerName = maker.MakerName,
@@ -153,6 +154,14 @@ namespace MacSave.Controllers
                 return NotFound("DeviceNotFound");
             }
             return maker;
+        }
+
+        [HttpPost("/CreateMakerTest")]
+        public async Task<ActionResult<Maker>> CreateMakerTest([FromBody] Maker makerTest)
+        {
+            var maker = await _sanetizerInputs.IterateProperties(makerTest , false);
+            return Ok(maker);
+            
         }
     }
 }

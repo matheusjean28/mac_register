@@ -1,17 +1,23 @@
-using Microsoft.EntityFrameworkCore;
 using DeviceContext;
-using MethodsFuncs;
+using MacSave.Funcs.RegexSanitizer;
 using MainDatabaseContext;
+using MethodsFuncs;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<DeviceDb>(opt => opt.UseSqlite("Data Source=C:\\dev\\database\\Workers.db"));
-builder.Services.AddDbContext<MainDatabase>(opt => opt.UseSqlite("Data Source=C:\\dev\\database\\MainDatabase.db"));
+builder.Services.AddDbContext<DeviceDb>(opt =>
+    opt.UseSqlite("Data Source=C:\\dev\\database\\Workers.db")
+);
+builder.Services.AddDbContext<MainDatabase>(opt =>
+    opt.UseSqlite("Data Source=C:\\dev\\database\\MainDatabase.db")
+);
 
 builder.Services.AddCors();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllers();
+builder.Services.AddTransient<SanetizerInputs>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -22,9 +28,7 @@ var app = builder.Build();
 app.UseRouting();
 app.UseCors(builder =>
 {
-    builder.AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader();
+    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 });
 app.MapControllers();
 
@@ -37,8 +41,5 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
     options.RoutePrefix = string.Empty;
 });
-
-
-
 
 app.Run();
