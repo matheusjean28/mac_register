@@ -3,6 +3,7 @@ using MacSave.Models.Categories;
 using MacSave.Models.Categories.Models_of_Devices;
 using MacSave.Models.SinalHistory;
 using MacToDatabaseModel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.ProblemTreatWrapper;
 using Models.UsedAtWrapper.UsedAtWrapper;
@@ -60,5 +61,7 @@ namespace DeviceContext
 
 
         }
+
+        
     }
 }

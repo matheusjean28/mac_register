@@ -1,4 +1,5 @@
 using DeviceContext;
+using MacSave.Funcs;
 using MacSave.Funcs.RegexSanitizer;
 using MainDatabaseContext;
 using MethodsFuncs;
@@ -17,7 +18,7 @@ builder.Services.AddCors();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllers();
-builder.Services.AddTransient<SanetizerInputs>();
+builder.Services.AddTransient<RegexService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

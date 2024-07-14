@@ -1,5 +1,5 @@
 using DeviceContext;
-using MacSave.Funcs.RegexSanitizer;
+using MacSave.Funcs;
 using MacSave.Models.Categories;
 using MacSave.Models.Categories.Models_of_Devices;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +12,11 @@ namespace MacSave.Controllers
     public class CateriesActions : ControllerBase
     {
         private readonly DeviceDb _db;
-        private readonly SanetizerInputs _sanetizerInputs;
+        private readonly RegexService _regexService;
 
-        public CateriesActions(DeviceDb db, SanetizerInputs sanetizerInputs)
+        public CateriesActions(DeviceDb db, RegexService regexService)
         {
-            _sanetizerInputs = sanetizerInputs;
+            _regexService = regexService;
             _db = db;
         }
 
@@ -65,12 +65,10 @@ namespace MacSave.Controllers
 
         [HttpPost]
         [Route("/CreateMaker")]
-        public async Task<ActionResult<Maker>> CreateMaker([FromBody] Maker makerDirty)
+        public async Task<ActionResult<Maker>> CreateMaker([FromBody] Maker maker)
         {
             try
             {
-                var maker = await _sanetizerInputs.IterateProperties(makerDirty, true);
-
                 if (maker == null)
                 {
                     return BadRequest("Maker Cannot be empyt");
@@ -145,23 +143,17 @@ namespace MacSave.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Maker>> GetMakerById(string id)
+        [HttpGet("/FindMaker/{param}")]
+        public async Task<ActionResult<object>> GetMakerById(string param)
         {
-            var maker = await _db.Makers.FindAsync(id);
+            var maker = await _db
+                .Devices.Include(x => x.Model == param).Select( x => x.Model == param)
+                .ToListAsync();
             if (maker == null)
             {
                 return NotFound("DeviceNotFound");
             }
             return maker;
-        }
-
-        [HttpPost("/CreateMakerTest")]
-        public async Task<ActionResult<Maker>> CreateMakerTest([FromBody] Maker makerTest)
-        {
-            var maker = await _sanetizerInputs.IterateProperties(makerTest , true);
-            return Ok(maker);
-            
         }
     }
 }
