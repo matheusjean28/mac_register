@@ -15,7 +15,7 @@ namespace MacSave.Funcs
                 return input;
             }
             
-            input = SanitizeRegex.Replace(input, string.Empty);
+            input = SanitizeRegex.Replace(input, string.Empty).Trim();
 
             input = HttpUtility.HtmlEncode(input);
              input = input.Replace("'", "''");
