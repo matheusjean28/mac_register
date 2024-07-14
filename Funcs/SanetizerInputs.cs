@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MacSave.Funcs.RegexSanitizer
 {
@@ -18,59 +19,34 @@ namespace MacSave.Funcs.RegexSanitizer
             return SanitizeRegex.Replace(input, string.Empty).Trim();
         }
 
-        public async Task<T> IterateProperties<T>(T obj, bool ActiveLogginObject)
-            where T : new()
+        public async Task<T> IterateProperties<T>(T obj, bool activeLogging)
         {
-            T _newObjectGenericClean = new();
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
+            // Get type of obj
             Type type = obj.GetType();
 
-            // iterate whole object and its public properties
-            foreach (
-                PropertyInfo property in type.GetProperties(
-                    BindingFlags.Public | BindingFlags.Instance
-                )
-            )
+            // Get all properties of the object
+            PropertyInfo[] properties = type.GetProperties();
+
+            foreach (PropertyInfo property in properties)
             {
-            await Task.Delay(10);
-
-                // get name and value of propertie
+                // Get the name and value of each property
                 string propertyName = property.Name;
-                object? propertyValue = property.GetValue(obj);
+                object propertyValue = property.GetValue(obj);
+                propertyValue.ToString();
+                if(propertyValue != null){
 
-                // call sanitizer func regex and return clean value
-                string? propertyNameClean = InputSanitizer(propertyName);
-                string? propertyValueClean = InputSanitizer(
-                    propertyValue?.ToString() ?? string.Empty
-                );
-                
-                //must to check is value if diferent than string
-                
-        
-                //take value to be set at place of dirty field
-                property.SetValue(
-                    _newObjectGenericClean,
-                    Convert.ChangeType(propertyValueClean, property.PropertyType)
-                );
+                    Console.WriteLine($"\n\n\n{propertyName}: \n{propertyValue} \n\n\n" );
+                   property.SetValue(obj, InputSanitizer(), null);
+                    Console.WriteLine($"\n\n\n{propertyName}: \n{propertyValue} \n\n\n" );
 
-                // if true, loggin is active
-                if (ActiveLogginObject)
-                {
-                    Console.WriteLine("------------------------");
-                    Console.WriteLine("\nProperties Without Clean: \n");
-                    Console.WriteLine($"Property: {propertyName}, \nValue: {propertyValue} \n");
-                    Console.WriteLine("------------------------");
-                    Console.WriteLine("Start clean items\n");
-                    Console.WriteLine(
-                        $"Clean Property: {propertyNameClean}, \nClean Value: {propertyValueClean}"
-                    );
                 }
+
             }
 
-            return _newObjectGenericClean;
+            // Perform any additional processing if required
+
+            // Return the modified object (if any modifications are done)
+            return await Task.FromResult(obj);
         }
     }
 }

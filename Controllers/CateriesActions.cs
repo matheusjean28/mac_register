@@ -159,7 +159,7 @@ namespace MacSave.Controllers
         [HttpPost("/CreateMakerTest")]
         public async Task<ActionResult<Maker>> CreateMakerTest([FromBody] Maker makerTest)
         {
-            var maker = await _sanetizerInputs.IterateProperties(makerTest , false);
+            var maker = await _sanetizerInputs.IterateProperties(makerTest , true);
             return Ok(maker);
             
         }
