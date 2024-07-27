@@ -11,8 +11,8 @@ namespace Model.ProblemTreatWrapper
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string ProblemName { get; set; } = string.Empty;
+        public string ProblemDescription { get; set; } = string.Empty;
 
         [ForeignKey("DeviceCreate")]
         public required string DeviceId { get; set; }

@@ -1,13 +1,15 @@
+using System.Linq;
 using DeviceContext;
 using DeviceModel;
+using MacSave.Funcs;
+using MacSave.Models.Categories.Models_of_Devices;
 using MacSave.Models.SinalHistory;
 using mac_register.Models.FullDeviceCreate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.ProblemTreatWrapper;
-using MacSave.Funcs;
 using Models.UsedAtWrapper.UsedAtWrapper;
-using   MacSave.Models.Categories.Models_of_Devices;
+
 namespace Controller.DeviceActionsController
 {
     [ApiController]
@@ -16,6 +18,7 @@ namespace Controller.DeviceActionsController
     {
         private readonly DeviceDb _db;
         private readonly RegexService _regexService;
+
         public DeviceActionsController(DeviceDb db, RegexService regexService)
         {
             _regexService = regexService;
@@ -41,8 +44,8 @@ namespace Controller.DeviceActionsController
                         Problems = d.Problems.Select(p => new
                         {
                             p.Id,
-                            p.Name,
-                            p.Description,
+                            p.ProblemName,
+                            p.ProblemDescription,
                             p.DeviceId
                         }),
                         UsedAtClients = d.UsedAtClients.Select(u => new
@@ -84,8 +87,8 @@ namespace Controller.DeviceActionsController
                 .ToListAsync();
 
             var problemTask = _db
-                .Problems.Where(p => p.Name.Contains(param))
-                .Where(p => p.Description.Contains(param))
+                .Problems.Where(p => p.ProblemName.Contains(param))
+                .Where(p => p.ProblemDescription.Contains(param))
                 .ToListAsync();
 
             var usedAtTask = _db.UsedAtClient.Where(u => u.Name.Contains(param)).ToListAsync();
@@ -128,33 +131,43 @@ namespace Controller.DeviceActionsController
         }
 
         [HttpPost("CreateDevice")]
-        public async Task<ActionResult<FullDeviceCreate>> CreateDevice(
+        //return to FullDeviceCreate
+        public async Task<ActionResult<object>> CreateDevice(
             [FromBody] FullDeviceCreate fullDeviceDiry
         )
         {
-            var device = new FullDeviceCreate{
-             Model = _regexService.SanitizeInput(fullDeviceDiry.Model),
-             Mac = _regexService.SanitizeInput(fullDeviceDiry.Mac),
-             RemoteAcess = fullDeviceDiry.RemoteAcess,
-             Name = _regexService.SanitizeInput(fullDeviceDiry.Name),
-             Description= _regexService.SanitizeInput(fullDeviceDiry.Description),
-             UserName = _regexService.SanitizeInput(fullDeviceDiry.UserName),
-             SinalRX = _regexService.SanitizeInput(fullDeviceDiry.SinalRX),
-             SinalTX = _regexService.SanitizeInput(fullDeviceDiry.SinalTX),
-           };
-
-            if (device == null)
+            if (fullDeviceDiry == null)
             {
                 return BadRequest("Device cannot be null");
             }
 
+            var device = new FullDeviceCreate
+            {
+                Model = _regexService.SanitizeInput(fullDeviceDiry.Model),
+                Mac = _regexService.SanitizeInput(fullDeviceDiry.Mac),
+                RemoteAcess = fullDeviceDiry.RemoteAcess,
+                ProblemName = _regexService.SanitizeInput(fullDeviceDiry.ProblemName),
+                ProblemDescription = _regexService.SanitizeInput(fullDeviceDiry.ProblemDescription),
+                UserName = _regexService.SanitizeInput(fullDeviceDiry.UserName),
+                SinalRX = _regexService.SanitizeInput(fullDeviceDiry.SinalRX),
+                SinalTX = _regexService.SanitizeInput(fullDeviceDiry.SinalTX),
+            };
+
             try
             {
-                //  !!! FIND DDIRY PARAM 
-                var deviceCategory = await _db.DeviceCategories.FindAsync(fullDeviceDiry.Model);
-                if( deviceCategory == null){
-                    return BadRequest("Invalid Device Model");
-                }
+                //get maker id to device category
+                var deviceCategory = await _db.DeviceCategories.FirstOrDefaultAsync(dc =>
+                    dc.DeviceCategoryName == "teste"
+                );
+
+                // if (deviceCategory == null)
+                // {
+                //     return BadRequest("Device Name Not Found!");
+                // }
+
+                //  !!! FIND DDIRY PARAM
+                //check if is null
+               
 
                 //creating a device and save it
                 var deviceMac = new DeviceCreate
@@ -162,13 +175,16 @@ namespace Controller.DeviceActionsController
                     Model = device.Model,
                     Mac = device.Mac,
                     RemoteAcess = device.RemoteAcess,
+                    DeviceName = "teste",
                 };
+                await _db.Devices.AddAsync(deviceMac);
+                await _db.SaveChangesAsync();
 
                 //instance a new problem and save it
                 var problem = new ProblemTreatWrapper
                 {
-                    Name = device.Name,
-                    Description = device.Description,
+                    ProblemName = device.ProblemName,
+                    ProblemDescription = device.ProblemDescription,
                     DeviceId = deviceMac.DeviceId
                 };
                 deviceMac.Problems.Add(problem);
@@ -188,16 +204,10 @@ namespace Controller.DeviceActionsController
                     Name = device.UserName,
                     DeviceId = deviceMac.DeviceId
                 };
-                await _db.Devices.AddAsync(deviceMac);
-                await _db.SaveChangesAsync();
                 deviceMac.UsedAtClients.Add(usedAt);
 
-
-                deviceCategory.AddDeviceCategory(deviceMac);
-                await _db.SaveChangesAsync();
-
-
-                await _db.SaveChangesAsync();
+                // deviceCategory.AddDeviceToCategory(deviceMac);
+                // await _db.SaveChangesAsync();
 
                 var responde = new
                 {
@@ -210,7 +220,7 @@ namespace Controller.DeviceActionsController
             }
             catch (Exception ex)
             {
-                return BadRequest($"Failed to create device: {ex.Message}");
+                return BadRequest($"Failed to create device: {ex.Message}, {ex.StackTrace}, {ex.GetBaseException()}");	
             }
         }
     }

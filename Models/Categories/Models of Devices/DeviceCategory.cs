@@ -9,7 +9,8 @@ namespace MacSave.Models.Categories.Models_of_Devices
 {
     public class DeviceCategory
     {
-        
+       
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string DeviceCategoryId { get; set; } = Guid.NewGuid().ToString();
@@ -31,7 +32,7 @@ namespace MacSave.Models.Categories.Models_of_Devices
         [JsonIgnore]
         public ICollection<DeviceCreate> Devices { get; set; } = new List<DeviceCreate>();
 
-        public void AddDeviceCategory(DeviceCreate deviceCreate)
+        public void AddDeviceToCategory(DeviceCreate deviceCreate)
         {
             Devices.Add(deviceCreate);
         }

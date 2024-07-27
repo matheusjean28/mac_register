@@ -15,8 +15,8 @@ namespace mac_register.Models.FullDeviceCreate
         public bool RemoteAcess { get; set; }
 
         //map array of the problems that come from array of params
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string ProblemName { get; set; }
+        public string ProblemDescription { get; set; }
 
         //map array of the old users that come from array of params
         public string UserName { get; set; }
