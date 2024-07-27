@@ -143,62 +143,6 @@ namespace MacSave.Controllers
             }
         }
 
-        [HttpGet("/FindMaker/{paramDirty}")]
-        public async Task<ActionResult<object>> GetMakerById(string paramDirty)
-        {
-            if (paramDirty == null || paramDirty.Length < 5)
-            {
-                return BadRequest("Params length is too small");
-            }
-            var param = _regexService.SanitizeInput(paramDirty);
-
-            var deviceTask = _db
-                .Devices.Where(d => d.Model.Contains(param))
-                .Where(d => d.Mac.Contains(param))
-                .ToListAsync();
-
-            var problemTask = _db
-                .Problems.Where(p => p.Name.Contains(param))
-                .Where(p => p.Description.Contains(param))
-                .ToListAsync();
-
-            var usedAtTask = _db.UsedAtClient.Where(u => u.Name.Contains(param)).ToListAsync();
-
-            var MakersTask = _db.Makers.Where(h => h.MakerName.Contains(param)).ToListAsync();
-
-            var DeviceCategoriesTaks = _db
-                .DeviceCategories.Where(c => c.DeviceCategoryName.Contains(param))
-                .ToListAsync();
-
-            await Task.WhenAll(deviceTask, problemTask, usedAtTask, MakersTask);
-
-            var deviceResults = await deviceTask;
-            var problemResults = await problemTask;
-            var usedAtResults = await usedAtTask;
-            var MakersTaskResults = await MakersTask;
-            var DeviceCategoriesResults = await DeviceCategoriesTaks;
-
-            var results = new
-            {
-                Devices = deviceResults,
-                Problems = problemResults,
-                UsedAtClients = usedAtResults,
-                Makers = MakersTaskResults,
-                DeviceCategories = DeviceCategoriesResults,
-            };
-
-            if (
-                deviceResults.Count == 0
-                && problemResults.Count == 0
-                && usedAtResults.Count == 0
-                && MakersTaskResults.Count == 0
-                && DeviceCategoriesResults.Count == 0
-            )
-            {
-                return NotFound("DeviceNotFound");
-            }
-
-            return Ok(results);
-        }
+        
     }
 }
