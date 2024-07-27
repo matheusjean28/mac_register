@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using MacSave.Models.Categories.Models_of_Devices;
 using MacSave.Models.SinalHistory;
 using Model.ProblemTreatWrapper;
 using Models.UsedAtWrapper.UsedAtWrapper;
@@ -17,6 +18,13 @@ public class DeviceCreate
     public string Model { get; set; } = string.Empty;
     public string Mac { get; set; } = string.Empty;
     public bool RemoteAcess { get; set; } = false;
+
+    //reference Device Category
+    [ForeignKey("DeviceCategory")]
+    public string DeviceName { get; set; }
+
+    [JsonIgnore]
+    public DeviceCategory DeviceCategory { get; set; } = null!;
 
     [JsonIgnore]
     public ICollection<ProblemTreatWrapper> Problems { get; set; } =

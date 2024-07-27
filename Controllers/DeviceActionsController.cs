@@ -5,9 +5,9 @@ using mac_register.Models.FullDeviceCreate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.ProblemTreatWrapper;
-using Models.UsedAtWrapper.UsedAtWrapper;
 using MacSave.Funcs;
-
+using Models.UsedAtWrapper.UsedAtWrapper;
+using   MacSave.Models.Categories.Models_of_Devices;
 namespace Controller.DeviceActionsController
 {
     [ApiController]
@@ -20,6 +20,7 @@ namespace Controller.DeviceActionsController
         {
             _regexService = regexService;
             _db = db;
+            _regexService = regexService;
         }
 
         [HttpGet("GetAllDevices")]
@@ -128,9 +129,20 @@ namespace Controller.DeviceActionsController
 
         [HttpPost("CreateDevice")]
         public async Task<ActionResult<FullDeviceCreate>> CreateDevice(
-            [FromBody] FullDeviceCreate device
+            [FromBody] FullDeviceCreate fullDeviceDiry
         )
         {
+            var device = new FullDeviceCreate{
+             Model = _regexService.SanitizeInput(fullDeviceDiry.Model),
+             Mac = _regexService.SanitizeInput(fullDeviceDiry.Mac),
+             RemoteAcess = fullDeviceDiry.RemoteAcess,
+             Name = _regexService.SanitizeInput(fullDeviceDiry.Name),
+             Description= _regexService.SanitizeInput(fullDeviceDiry.Description),
+             UserName = _regexService.SanitizeInput(fullDeviceDiry.UserName),
+             SinalRX = _regexService.SanitizeInput(fullDeviceDiry.SinalRX),
+             SinalTX = _regexService.SanitizeInput(fullDeviceDiry.SinalTX),
+           };
+
             if (device == null)
             {
                 return BadRequest("Device cannot be null");
@@ -138,6 +150,12 @@ namespace Controller.DeviceActionsController
 
             try
             {
+                //  !!! FIND DDIRY PARAM 
+                var deviceCategory = await _db.DeviceCategories.FindAsync(fullDeviceDiry.Model);
+                if( deviceCategory == null){
+                    return BadRequest("Invalid Device Model");
+                }
+
                 //creating a device and save it
                 var deviceMac = new DeviceCreate
                 {
@@ -173,6 +191,11 @@ namespace Controller.DeviceActionsController
                 await _db.Devices.AddAsync(deviceMac);
                 await _db.SaveChangesAsync();
                 deviceMac.UsedAtClients.Add(usedAt);
+
+
+                deviceCategory.AddDeviceCategory(deviceMac);
+                await _db.SaveChangesAsync();
+
 
                 await _db.SaveChangesAsync();
 

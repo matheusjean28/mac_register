@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using DeviceModel;
 using MacSave.Models.Categories;
 using MacSave.Models.Categories.OperationModelEnums;
 
@@ -8,6 +9,7 @@ namespace MacSave.Models.Categories.Models_of_Devices
 {
     public class DeviceCategory
     {
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string DeviceCategoryId { get; set; } = Guid.NewGuid().ToString();
@@ -20,9 +22,18 @@ namespace MacSave.Models.Categories.Models_of_Devices
         [ForeignKey("Maker")]
         public required string MakerId { get; set; }
 
-        
         //comented to avoid error at controller, must be fixed
         // [JsonIgnore]
         // public Maker Maker { get; set; } = null!;
+
+        
+        
+        [JsonIgnore]
+        public ICollection<DeviceCreate> Devices { get; set; } = new List<DeviceCreate>();
+
+        public void AddDeviceCategory(DeviceCreate deviceCreate)
+        {
+            Devices.Add(deviceCreate);
+        }
     }
 }
