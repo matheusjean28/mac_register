@@ -56,7 +56,7 @@ namespace DeviceContext
             modelBuilder.Entity<DeviceCategory>()
             .HasMany(e => e.Devices)
             .WithOne(e => e.DeviceCategory)
-            .HasForeignKey(e => e.DeviceName)
+            .HasForeignKey(e => e.DeviceCategoryId)
             .IsRequired();
 
             // modelBuilder.Entity<Maker>()

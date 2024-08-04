@@ -10,9 +10,12 @@ namespace mac_register.Models.FullDeviceCreate
 {
     public class FullDeviceCreate
     {
-        public string Model { get; set; }
+        //refer id of the maker that owns this model
+        public string Category_Id_Device { get; set; }
+
         public string Mac { get; set; }
         public bool RemoteAcess { get; set; }
+        public string DeviceCategoryName { get; set; }
 
         //map array of the problems that come from array of params
         public string ProblemName { get; set; }

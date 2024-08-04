@@ -21,7 +21,7 @@ public class DeviceCreate
 
     //reference Device Category
     [ForeignKey("DeviceCategory")]
-    public string DeviceName { get; set; }
+    public string DeviceCategoryId { get; set; }
 
     [JsonIgnore]
     public DeviceCategory DeviceCategory { get; set; } = null!;

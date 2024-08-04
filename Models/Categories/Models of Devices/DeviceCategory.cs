@@ -15,7 +15,7 @@ namespace MacSave.Models.Categories.Models_of_Devices
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string DeviceCategoryId { get; set; } = Guid.NewGuid().ToString();
 
-        public string DeviceCategoryName { get; set; }
+        public required string DeviceCategoryName { get; set; } 
 
         //if Operation mode was not provide, then default value is set to NONE, but can change before
         public OperationModelEnum OperationMode { get; set; } = OperationModelEnum.None;
@@ -27,10 +27,10 @@ namespace MacSave.Models.Categories.Models_of_Devices
         // [JsonIgnore]
         // public Maker Maker { get; set; } = null!;
 
-        
-        
         [JsonIgnore]
         public ICollection<DeviceCreate> Devices { get; set; } = new List<DeviceCreate>();
+        
+        
 
         public void AddDeviceToCategory(DeviceCreate deviceCreate)
         {

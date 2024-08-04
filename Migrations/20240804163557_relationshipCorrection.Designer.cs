@@ -3,6 +3,7 @@ using System;
 using DeviceContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MacSave.Migrations
 {
     [DbContext(typeof(DeviceDb))]
-    partial class DeviceDbModelSnapshot : ModelSnapshot
+    [Migration("20240804163557_relationshipCorrection")]
+    partial class relationshipCorrection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
@@ -23,7 +26,7 @@ namespace MacSave.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DeviceCategoryId")
+                    b.Property<string>("DeviceName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -40,7 +43,7 @@ namespace MacSave.Migrations
 
                     b.HasKey("DeviceId");
 
-                    b.HasIndex("DeviceCategoryId");
+                    b.HasIndex("DeviceName");
 
                     b.ToTable("Devices");
                 });
@@ -204,7 +207,7 @@ namespace MacSave.Migrations
                 {
                     b.HasOne("MacSave.Models.Categories.Models_of_Devices.DeviceCategory", "DeviceCategory")
                         .WithMany("Devices")
-                        .HasForeignKey("DeviceCategoryId")
+                        .HasForeignKey("DeviceName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
