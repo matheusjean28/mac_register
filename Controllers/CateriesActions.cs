@@ -4,6 +4,8 @@ using MacSave.Models.Categories;
 using MacSave.Models.Categories.Models_of_Devices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MacSave.Models.FromBodyParamsDarty;
+
 
 namespace MacSave.Controllers
 {
@@ -98,7 +100,7 @@ namespace MacSave.Controllers
         [HttpPost]
         [Route("/CreateCategory")]
         public async Task<ActionResult<DeviceCategory>> CreateCategory(
-            [FromBody] DeviceCategory category
+            [FromBody] CreateCategoryDarty category
         )
         {
             try

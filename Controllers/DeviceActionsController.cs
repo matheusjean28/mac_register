@@ -183,10 +183,10 @@ namespace Controller.DeviceActionsController
                     Mac = deviceDity.Mac,
                     Model = deviceDity.Category_Id_Device,
                     RemoteAcess = deviceDity.RemoteAcess,
-                    DeviceCategoryId = deviceDity.DeviceCategoryName
+                    DeviceCategoryId = deviceDity.Category_Id_Device
                 };
                 _logger.LogInformation(
-                    " \nchecking status of device create\n\nMacDevice Mac = {}, \nMacDevice model = {}\n, MacDevice Remote Acess = {}, \nMacDevice.DeviceCategoryId = {}\n\n\n\n---------------------------\n\n\n",
+                    " \nchecking status of device create\n\nMacDevice Mac = {}, \nMacDevice model_ID = {},\nMacDevice Remote Acess = {}, \nMacDevice.DeviceCategoryId = {}\n\n\n\n---------------------------\n\n\n",
                     MacDevice.Mac,
                     MacDevice.Model,
                     MacDevice.RemoteAcess,
@@ -206,100 +206,5 @@ namespace Controller.DeviceActionsController
                 return BadRequest(ex.Message);
             }
         }
-
-        // [HttpPost("CreateDevice")]
-        // //return to FullDeviceCreate
-        // public async Task<ActionResult<object>> CreateDevice(
-        //     [FromBody] FullDeviceCreate fullDeviceDiry
-        // )
-        // {
-        //     if (fullDeviceDiry == null)
-        //     {
-        //         return BadRequest("Device cannot be null");
-        //     }
-
-        //     var device = new FullDeviceCreate
-        //     {
-        //         Model = _regexService.SanitizeInput(fullDeviceDiry.Model),
-        //         Mac = _regexService.SanitizeInput(fullDeviceDiry.Mac),
-        //         RemoteAcess = fullDeviceDiry.RemoteAcess,
-        //         ProblemName = _regexService.SanitizeInput(fullDeviceDiry.ProblemName),
-        //         ProblemDescription = _regexService.SanitizeInput(fullDeviceDiry.ProblemDescription),
-        //         UserName = _regexService.SanitizeInput(fullDeviceDiry.UserName),
-        //         SinalRX = _regexService.SanitizeInput(fullDeviceDiry.SinalRX),
-        //         SinalTX = _regexService.SanitizeInput(fullDeviceDiry.SinalTX),
-        //     };
-
-        //     try
-        //     {
-        //         //get maker id to device category
-        //         var deviceCategory = await _db.DeviceCategories.FirstOrDefaultAsync(dc =>
-        //             dc.DeviceCategoryName == device.Model
-        //         );
-
-        //         //  !!! FIND DDIRY PARAM
-        //         //check if is null
-
-        //         if (deviceCategory == null)
-        //         {
-        //             return BadRequest("Device Name Not Found!");
-        //         }
-
-        //         //creating a device and save it
-        //         var deviceMac = new DeviceCreate
-        //         {
-        //             Model = device.Model,
-        //             Mac = device.Mac,
-        //             RemoteAcess = device.RemoteAcess,
-        //             DeviceCategoryName = deviceCategory.DeviceCategoryName,
-        //         };
-        //         await _db.Devices.AddAsync(deviceMac);
-        //         await _db.SaveChangesAsync();
-
-        //         deviceCategory.AddDeviceToCategory(deviceMac);
-        //         await _db.SaveChangesAsync();
-
-        //         //instance a new problem and save it
-        //         var problem = new ProblemTreatWrapper
-        //         {
-        //             ProblemName = device.ProblemName,
-        //             ProblemDescription = device.ProblemDescription,
-        //             DeviceId = deviceMac.DeviceId
-        //         };
-        //         deviceMac.Problems.Add(problem);
-        //         await _db.Problems.AddAsync(problem);
-
-        //         var sinalHistory = new SinalHistory
-        //         {
-        //             SinalRX = device.SinalRX,
-        //             SinalTX = device.SinalTX,
-        //             DeviceId = deviceMac.DeviceId,
-        //         };
-        //         deviceMac.AddSinal(sinalHistory);
-
-        //         //instance a new user and save it
-        //         var usedAt = new UsedAtWrapper
-        //         {
-        //             Name = device.UserName,
-        //             DeviceId = deviceMac.DeviceId
-        //         };
-        //         deviceMac.UsedAtClients.Add(usedAt);
-
-        //         var responde = new
-        //         {
-        //             deviceMac,
-        //             usedAt,
-        //             problem
-        //         };
-
-        //         return Ok(responde);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return BadRequest(
-        //             $"Failed to create device: {ex.Message}, {ex.StackTrace}, {ex.GetBaseException()}"
-        //         );
-        //     }
-        // }
     }
 }
