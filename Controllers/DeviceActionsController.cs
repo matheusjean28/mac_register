@@ -183,7 +183,7 @@ namespace Controller.DeviceActionsController
                     Mac = deviceDity.Mac,
                     Model = deviceDity.Category_Id_Device,
                     RemoteAcess = deviceDity.RemoteAcess,
-                    DeviceCategoryId = deviceDity.DeviceCategoryName
+                    DeviceCategoryId = deviceDity.Category_Id_Device
                 };
                 _logger.LogInformation(
                     " \nchecking status of device create\n\nMacDevice Mac = {}, \nMacDevice model = {}\n, MacDevice Remote Acess = {}, \nMacDevice.DeviceCategoryId = {}\n\n\n\n---------------------------\n\n\n",
