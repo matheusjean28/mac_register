@@ -149,19 +149,6 @@ namespace Controller.DeviceActionsController
                     return BadRequest("device cannot be null!");
                 }
 
-                _logger.LogInformation(
-                    "---------------------------\n\nDevice Raw: \nCategory_Id_Device={ Category_Id_Device }, \nDeviceCategoryName= {DeviceCategoryName}, \nMac={ Mac }, \nRemoteAcess={ RemoteAcess }, \nProblemName={ ProblemName }, \nProblemDescription={ ProblemDescription }, \nUserName={ UserName }, \nSinalRX={ SinalRX }, \nSinalTX={ SinalTX }",
-                    deviceDity.Category_Id_Device,
-                    deviceDity.DeviceCategoryName,
-                    deviceDity.Mac,
-                    deviceDity.RemoteAcess,
-                    deviceDity.ProblemName,
-                    deviceDity.ProblemDescription,
-                    deviceDity.UserName,
-                    deviceDity.SinalRX,
-                    deviceDity.SinalTX
-                );
-
                 var deviceCategory = await _db.DeviceCategories.FirstOrDefaultAsync(dc =>
                     dc.DeviceCategoryId == deviceDity.Category_Id_Device
                 );
@@ -169,13 +156,7 @@ namespace Controller.DeviceActionsController
                 if (deviceCategory == null)
                 {
                     return BadRequest("category not found!");
-                }
-                ;
-                _logger.LogInformation(
-                    "\n\nloggin device category info:\nDeviceCategoryName = {},\nDeviceCategoryID = {}\n\n",
-                    deviceCategory.DeviceCategoryName,
-                    deviceCategory.DeviceCategoryId
-                );
+                };
 
                 //instance a new device create and pass device category name him
                 var MacDevice = new DeviceCreate
@@ -185,13 +166,7 @@ namespace Controller.DeviceActionsController
                     RemoteAcess = deviceDity.RemoteAcess,
                     DeviceCategoryId = deviceDity.Category_Id_Device
                 };
-                _logger.LogInformation(
-                    " \nchecking status of device create\n\nMacDevice Mac = {}, \nMacDevice model_ID = {},\nMacDevice Remote Acess = {}, \nMacDevice.DeviceCategoryId = {}\n\n\n\n---------------------------\n\n\n",
-                    MacDevice.Mac,
-                    MacDevice.Model,
-                    MacDevice.RemoteAcess,
-                    MacDevice.DeviceCategoryId
-                );
+
                 await _db.Devices.AddAsync(MacDevice);
                 await _db.SaveChangesAsync();
 
