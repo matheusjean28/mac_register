@@ -15,11 +15,11 @@ builder.Services.AddDbContext<MainDatabase>(opt =>
 
 builder.Services.AddCors();
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();                     
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<RegexService>();
-builder.Services.AddTransient<DatabaseTasks>();
+//builder.Services.AddTransient<DatabaseTasks>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
