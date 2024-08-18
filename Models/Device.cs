@@ -13,7 +13,7 @@ public class DeviceCreate
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
-    public string DeviceId { get; set; }
+    public string DeviceId { get; set; } = Guid.NewGuid().ToString();
 
     public string Model { get; set; } = string.Empty;
     public string Mac { get; set; } = string.Empty;

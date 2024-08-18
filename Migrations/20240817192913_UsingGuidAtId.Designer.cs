@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MacSave.Migrations
 {
     [DbContext(typeof(DeviceDb))]
-    [Migration("20240804170828_deviceCategoryNameCorrection")]
-    partial class deviceCategoryNameCorrection
+    [Migration("20240817192913_UsingGuidAtId")]
+    partial class UsingGuidAtId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,7 @@ namespace MacSave.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DeviceCategoryName")
+                    b.Property<string>("DeviceCategoryId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -43,7 +43,7 @@ namespace MacSave.Migrations
 
                     b.HasKey("DeviceId");
 
-                    b.HasIndex("DeviceCategoryName");
+                    b.HasIndex("DeviceCategoryId");
 
                     b.ToTable("Devices");
                 });
@@ -207,7 +207,7 @@ namespace MacSave.Migrations
                 {
                     b.HasOne("MacSave.Models.Categories.Models_of_Devices.DeviceCategory", "DeviceCategory")
                         .WithMany("Devices")
-                        .HasForeignKey("DeviceCategoryName")
+                        .HasForeignKey("DeviceCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
