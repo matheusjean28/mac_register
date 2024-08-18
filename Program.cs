@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DeviceDb>(opt =>
-    opt.UseSqlite("Data Source=C:\\dev\\database\\Workers.db")
+    opt.UseSqlite("Data Source=Database/Workers.db")
 );
 builder.Services.AddDbContext<MainDatabase>(opt =>
-    opt.UseSqlite("Data Source=C:\\dev\\database\\MainDatabase.db")
+    opt.UseSqlite("Data Source=Database/MainDatabase.db")
 );
 
 builder.Services.AddCors();
@@ -19,6 +19,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<RegexService>();
+builder.Services.AddTransient<DatabaseTasks>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

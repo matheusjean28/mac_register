@@ -9,7 +9,7 @@ namespace MacSave.Models.SinalHistory
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public string SinalRX { get; set; } = "-00.00";
         public string SinalTX { get; set; } = "-00.00";

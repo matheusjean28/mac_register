@@ -5,7 +5,7 @@
 namespace MacSave.Migrations
 {
     /// <inheritdoc />
-    public partial class ReDoDb : Migration
+    public partial class UsingGuidAtId : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

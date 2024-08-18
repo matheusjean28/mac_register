@@ -9,7 +9,7 @@ namespace Models.UsedAtWrapper.UsedAtWrapper
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public string Name { get; set; }
 
         [ForeignKey("DeviceCreate")]
