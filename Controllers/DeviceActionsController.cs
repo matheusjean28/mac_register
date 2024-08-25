@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Model.ProblemTreatWrapper;
 using Models.UsedAtWrapper.UsedAtWrapper;
+using MacSave.Funcs;
 
 namespace Controller.DeviceActionsController
 {
@@ -25,18 +26,17 @@ namespace Controller.DeviceActionsController
 
 
         public DeviceActionsController(
-            DeviceDb db,
-            RegexService regexService,
-            ILogger<DeviceActionsController> logger,
-            DatabaseTasks databaseTasks
+        DeviceDb db,
+        RegexService regexService,
+        ILogger<DeviceActionsController> logger,
+        DatabaseTasks  databaseTRasks, 
 
-        )
+         )
         {
             _regexService = regexService;
             _db = db;
-            _regexService = regexService;
             _logger = logger;
-            _databaseTasks = databaseTasks;
+            _databseTasks = databaseTRasks
         }
 
         [HttpGet("GetAllDevices")]
