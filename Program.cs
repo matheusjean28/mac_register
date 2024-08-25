@@ -1,9 +1,12 @@
 using DeviceContext;
 using MacSave.Funcs;
+using MacSave.Funcs.Database;
 using MacSave.Funcs.RegexSanitizer;
 using MainDatabaseContext;
 using MethodsFuncs;
 using Microsoft.EntityFrameworkCore;
+using MacSave.Funcs.Database;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DeviceDb>(opt =>

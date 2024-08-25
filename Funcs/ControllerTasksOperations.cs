@@ -7,17 +7,21 @@ using Microsoft.Extensions.Logging;
 using Model.ProblemTreatWrapper;
 using Models.UsedAtWrapper.UsedAtWrapper;
 
-namespace MacSave.Funcs
+namespace MacSave.Funcs.Database
 {
 	public class DatabaseTasks
 	{//this class contains database options such save, create, delete and update items 
 	 //it was done with goal to reduce amount of code at controller
 		private readonly DeviceDb _db;
-		private readonly Logger<DatabaseTasks> _logger;
+		private readonly ILogger<DatabaseTasks> _logger;
 		private readonly RegexService _regexService;
 
 
-		public DatabaseTasks(DeviceDb db, Logger<DatabaseTasks> logger, RegexService regexService)
+		public DatabaseTasks(
+			DeviceDb db,
+			ILogger<DatabaseTasks> logger,
+			RegexService regexService
+			)
 		{
 			_logger = logger;
 			_db = db;
