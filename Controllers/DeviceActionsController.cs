@@ -292,100 +292,16 @@ namespace Controller.DeviceActionsController
 
                 //create a new instance of device DI Database Tasroks
                 var DatabaseTaskNewDevice = _databaseTasks.CreateDevice(deviceDity);
-                _logger.LogInformation("${}",DatabaseTaskNewDevice);
 
-                //instance a new device create and pass device category name him
-                var MacDevice = new DeviceCreate
-                {
-                    DeviceId = Guid.NewGuid().ToString(),               
-                    Mac = deviceDity.Mac,
-                    Model = deviceDity.Category_Id_Device,
-                    RemoteAcess = deviceDity.RemoteAcess,
-                    DeviceCategoryId = deviceDity.Category_Id_Device
-                };
-                await _db.Devices.AddAsync(MacDevice);
+                //Device Create reference to DatabaseTasksCreateRelatedEntites
+                var deviceCreateReferente = new DeviceCreate{};
 
-                _logger.LogInformation($"\n\n\nMacDevice Id = {MacDevice.DeviceId}\n\n\n");
-
-                //add that device to related category and save it
-                deviceCategory.AddDeviceToCategory(MacDevice);
-                _logger.LogInformation("\n\n\nok until here = add device to category\n\n\n");
-
-                await _db.SaveChangesAsync();
-
-                _logger.LogInformation("\n\n\nok until here = save device \n\n\n");
-
-                //generate a new problem and save it 
-                var problem = new ProblemTreatWrapper
-                {
-                    ProblemName = deviceDity.ProblemName,
-                    ProblemDescription = deviceDity.ProblemDescription,
-                    DeviceId = MacDevice.DeviceId,
-                };
-                _logger.LogInformation("\n\n\nok until here = generate problem\n\n\n");
-
-                MacDevice.AddProblems(problem);
-                _logger.LogInformation("\n\n\nok until here = add  problem\n\n\n");
-
-                //too darty, optimize before it works... 
-                try
-                {
-                    await _db.SaveChangesAsync();
-
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    foreach (var entry in ex.Entries)
-                    {
-                        if (entry.Entity is ProblemTreatWrapper)
-                        {
-                            var proposedValues = entry.CurrentValues;
-                            var databaseValues = entry.GetDatabaseValues();
-
-                            foreach (var property in proposedValues.Properties)
-                            {
-                                var proposedValue = proposedValues[property];
-                                var databaseValue = databaseValues[property];
-
-                                // TODO: decide which value should be written to database
-                                proposedValues[property] = proposedValue;
-
-                            }
-
-                            // Refresh original values to bypass next concurrency check
-                            entry.OriginalValues.SetValues(databaseValues);
-                        }
-                        else
-                        {
-                            throw new NotSupportedException(
-                                "Don't know how to handle concurrency conflicts for "
-                                + entry.Metadata.Name);
-                        }
-                    }
-                }
-                _logger.LogInformation("\n\n\nok until here = save problem at database\n\n\n");
+                await _databaseTasks.CreateRelatedEntities(deviceDity, deviceCreateReferente);
+                
 
 
-                //generate a new used at wrapper and save it
-                var userAtWrapper = new UsedAtWrapper
-                {
-                    Name = deviceDity.UserName,
-                    DeviceId = MacDevice.DeviceId
-                };
-                MacDevice.AddClients(userAtWrapper);
-                await _db.SaveChangesAsync();
 
-                //generate a new signal history and save ir
-                var SignalHistory = new SinalHistory
-                {
-                    SinalRX = deviceDity.SinalRX,
-                    SinalTX = deviceDity.SinalTX,
-                    DeviceId = MacDevice.DeviceId
-                };
-                MacDevice.AddSinal(SignalHistory);
-                await _db.SaveChangesAsync();
-
-                return Ok(MacDevice);
+                return Ok(DatabaseTaskNewDevice);
             }
             catch (System.Exception ex)
             {

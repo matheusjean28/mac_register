@@ -11,6 +11,8 @@ namespace DeviceModel;
 
 public class DeviceCreate
 {
+    public DeviceCreate(){}
+
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
     public string DeviceId { get; set; } = Guid.NewGuid().ToString();
