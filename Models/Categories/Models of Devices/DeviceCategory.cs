@@ -30,7 +30,6 @@ namespace MacSave.Models.Categories.Models_of_Devices
         [JsonIgnore]
         public ICollection<DeviceCreate> Devices { get; set; } = new List<DeviceCreate>();
         
-        
 
         public void AddDeviceToCategory(DeviceCreate deviceCreate)
         {

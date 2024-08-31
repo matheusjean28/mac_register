@@ -1,15 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 using DeviceContext;
-using MacSave.Funcs;
 using DeviceModel;
 using mac_register.Models.FullDeviceCreate;
 using MacSave.Models.SinalHistory;
-using Microsoft.Extensions.Logging;
 using Model.ProblemTreatWrapper;
 using Models.UsedAtWrapper.UsedAtWrapper;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace MacSave.Funcs.Database
 {
@@ -105,7 +100,7 @@ namespace MacSave.Funcs.Database
 			}
 
 			await _db.SaveChangesAsync();
-			
+
 			if (_LogStatus)
 			{
 			_logger.LogInformation($"\n\n\n-----Save  item at databse-----\n\n\n");

@@ -1,14 +1,7 @@
-using System.Linq;
 using DeviceContext;
-using DeviceModel;
-using MacSave.Models.Categories.Models_of_Devices;
-using MacSave.Models.SinalHistory;
 using mac_register.Models.FullDeviceCreate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Model.ProblemTreatWrapper;
-using Models.UsedAtWrapper.UsedAtWrapper;
 
 //database tasks import and regex service
 using MacSave.Funcs;
@@ -28,11 +21,10 @@ namespace Controller.DeviceActionsController
 
 
         public DeviceActionsController(
-    DeviceDb db,
-    RegexService regexService,
-    ILogger<DeviceActionsController> logger,
-    DatabaseTasks databaseTasks
-)
+        DeviceDb db,
+        RegexService regexService,
+        ILogger<DeviceActionsController> logger,
+        DatabaseTasks databaseTasks )
         {
             _regexService = regexService;
             _db = db;
@@ -106,13 +98,15 @@ namespace Controller.DeviceActionsController
                 .Where(p => p.ProblemDescription.Contains(param))
                 .ToListAsync();
 
-            var usedAtTask = _db.UsedAtClient.Where(u => u.Name.Contains(param)).ToListAsync();
-
-            var MakersTask = _db.Makers.Where(h => h.MakerName.Contains(param)).ToListAsync();
-
-            var DeviceCategoriesTaks = _db
-                .DeviceCategories.Where(c => c.DeviceCategoryName.Contains(param))
+            var usedAtTask = _db.UsedAtClient.Where(u => u.Name.Contains(param))
                 .ToListAsync();
+
+            var MakersTask = _db.Makers.Where(h => h.MakerName.Contains(param))
+                .ToListAsync();
+
+            var DeviceCategoriesTaks = _db.DeviceCategories
+            .Where(c => c.DeviceCategoryName.Contains(param))
+                    .ToListAsync();
 
             await Task.WhenAll(deviceTask, problemTask, usedAtTask, MakersTask);
 
@@ -146,8 +140,8 @@ namespace Controller.DeviceActionsController
         }
 
 
-        [HttpPost("/create_new_Device_with_DI")]
-        public async Task<ActionResult<object>> CreateNewDeviceWithDI(
+        [HttpPost("/create_new_device")]
+        public async Task<ActionResult<object>> CreateNewDevice(
             [FromBody] FullDeviceCreate deviceDity
         )
         {
