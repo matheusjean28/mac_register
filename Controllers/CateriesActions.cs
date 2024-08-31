@@ -56,7 +56,19 @@ namespace MacSave.Controllers
         {
             try
             {
-                var allCategories = await _db.DeviceCategories.ToListAsync();
+                var allCategories = await _db.DeviceCategories.Include(d => d.Devices)
+                .Select(d => new {
+                    d.DeviceCategoryId,
+                    d.DeviceCategoryName,
+                    d.OperationMode,
+                    Devices = d.Devices.Select(d => new{
+                    d.DeviceId,
+                    d.Mac,
+                    d.Model,
+                     d.RemoteAcess
+                    }) 
+                })
+                .ToListAsync();
                 return Ok(allCategories);
             }
             catch (Exception ex)
