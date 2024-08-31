@@ -155,7 +155,7 @@ namespace Controller.DeviceActionsController
             {
                 if (deviceDity == null)
                 {
-                    _logger.LogWarning("\n\n\nReceived a null FullDeviceCreate object.");
+                    _logger.LogWarning("Received a null FullDeviceCreate object.");
                     return BadRequest("device cannot be null!");
                 }
 
@@ -172,7 +172,7 @@ namespace Controller.DeviceActionsController
                 var DatabaseTaskNewDevice = _databaseTasks.CreateDevice(deviceDity);
                 await _db.Devices.AddAsync(DatabaseTaskNewDevice);
 
-                _logger.LogInformation("\n\n\nSaving new instance of device at database\n{}", deviceCategory.DeviceCategoryId);
+                _logger.LogInformation("\n\n\nSaving new instance of device at database\n {}", deviceCategory.DeviceCategoryId);
 
                 await _databaseTasks.CreateRelatedEntities(deviceDity, DatabaseTaskNewDevice);
 

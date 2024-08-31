@@ -19,6 +19,7 @@ namespace MacSave.Funcs.Database
 		private readonly DeviceDb _db;
 		private readonly ILogger<DatabaseTasks> _logger;
 		private readonly RegexService _regexService;
+		private bool _LogStatus = true;
 
 
 		public DatabaseTasks(
@@ -40,14 +41,18 @@ namespace MacSave.Funcs.Database
 			var checkMacAlreadyExists = _db.Devices.Where(d => d.Mac == deviceDity.Mac).Any();
 			if (checkMacAlreadyExists)
 			{
-				_logger.LogInformation("\n\n\nAttempted to create a device with an existing MAC: {Mac}", deviceDity.Mac);
-				throw new InvalidOperationException("\n\n\nMAC address already exists in the database.");
+				if (_LogStatus)
+				{
+					_logger.LogInformation("\n\n\nAttempted to create a device with an existing MAC: {Mac}", deviceDity.Mac);
+				}
+
+				throw new InvalidOperationException("MAC address already exists in the database.");
 			}
 
 			return new DeviceCreate
 			{
 				DeviceId = Guid.NewGuid().ToString(),
-				Mac = _regexService.SanitizeInput(deviceDity.Mac),
+				Mac = _regexService.SanitizeInput(deviceDity.Mac).ToUpper(),//uppercase mac as a standart 
 				Model = _regexService.SanitizeInput(deviceDity.Category_Id_Device),
 				RemoteAcess = deviceDity.RemoteAcess,
 				DeviceCategoryId = deviceDity.Category_Id_Device
@@ -67,7 +72,11 @@ namespace MacSave.Funcs.Database
 				DeviceId = macDevice.DeviceId,
 			};
 			macDevice.AddProblems(problem);
+
+			if (_LogStatus)
+			{
 			_logger.LogInformation($"\n\n\n-----Save  Problem-----\n\n\n");
+			}
 
 			var userAtWrapper = new UsedAtWrapper
 			{
@@ -75,7 +84,11 @@ namespace MacSave.Funcs.Database
 				DeviceId = _regexService.SanitizeInput(macDevice.DeviceId),
 			};
 			macDevice.AddClients(userAtWrapper);
+
+			if (_LogStatus)
+			{
 			_logger.LogInformation($"\n\n\n-----Save  Clients-----\n\n\n");
+			}
 
 
 			var signalHistory = new SinalHistory
@@ -85,10 +98,18 @@ namespace MacSave.Funcs.Database
 				DeviceId = macDevice.DeviceId
 			};
 			macDevice.AddSinal(signalHistory);
+
+			if (_LogStatus)
+			{
 			_logger.LogInformation($"\n\n\n-----Save  History-----\n\n\n");
+			}
 
 			await _db.SaveChangesAsync();
+			
+			if (_LogStatus)
+			{
 			_logger.LogInformation($"\n\n\n-----Save  item at databse-----\n\n\n");
+			}
 		}
 
 	}
