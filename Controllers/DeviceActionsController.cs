@@ -37,7 +37,7 @@ namespace Controller.DeviceActionsController
             _regexService = regexService;
             _db = db;
             _logger = logger;
-            _databaseTasks = databaseTasks;  // Corrigido: _databseTasks -> _databaseTasks
+            _databaseTasks = databaseTasks;
         }
 
 
@@ -146,128 +146,6 @@ namespace Controller.DeviceActionsController
         }
 
 
-
-        [HttpPost("/create_new_Device")]
-        public async Task<ActionResult<object>> CreateNewDevice(
-            [FromBody] FullDeviceCreate deviceDity
-        )
-        {
-            try
-            {
-                if (deviceDity == null)
-                {
-                    return BadRequest("device cannot be null!");
-                }
-
-                var deviceCategory = await _db.DeviceCategories.FirstOrDefaultAsync(dc =>
-                    dc.DeviceCategoryId == deviceDity.Category_Id_Device
-                );
-                //check if device is null and loggin it
-                if (deviceCategory == null)
-                {
-                    return BadRequest("category not found!");
-                };
-
-                //instance a new device create and pass device category name him
-                var MacDevice = new DeviceCreate
-                {
-                    DeviceId = Guid.NewGuid().ToString(),
-                    Mac = deviceDity.Mac,
-                    Model = deviceDity.Category_Id_Device,
-                    RemoteAcess = deviceDity.RemoteAcess,
-                    DeviceCategoryId = deviceDity.Category_Id_Device
-                };
-                await _db.Devices.AddAsync(MacDevice);
-
-                _logger.LogInformation($"\n\n\nMacDevice Id = {MacDevice.DeviceId}\n\n\n");
-
-                //add that device to related category and save it
-                deviceCategory.AddDeviceToCategory(MacDevice);
-                _logger.LogInformation("\n\n\nok until here = add device to category\n\n\n");
-
-                await _db.SaveChangesAsync();
-
-                _logger.LogInformation("\n\n\nok until here = save device \n\n\n");
-
-                //generate a new problem and save it 
-                var problem = new ProblemTreatWrapper
-                {
-                    ProblemName = deviceDity.ProblemName,
-                    ProblemDescription = deviceDity.ProblemDescription,
-                    DeviceId = MacDevice.DeviceId,
-                };
-                _logger.LogInformation("\n\n\nok until here = generate problem\n\n\n");
-
-                MacDevice.AddProblems(problem);
-                _logger.LogInformation("\n\n\nok until here = add  problem\n\n\n");
-
-                //too darty, optimize before it works... 
-                try
-                {
-                    await _db.SaveChangesAsync();
-
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    foreach (var entry in ex.Entries)
-                    {
-                        if (entry.Entity is ProblemTreatWrapper)
-                        {
-                            var proposedValues = entry.CurrentValues;
-                            var databaseValues = entry.GetDatabaseValues();
-
-                            foreach (var property in proposedValues.Properties)
-                            {
-                                var proposedValue = proposedValues[property];
-                                var databaseValue = databaseValues[property];
-
-                                // TODO: decide which value should be written to database
-                                proposedValues[property] = proposedValue;
-
-                            }
-
-                            // Refresh original values to bypass next concurrency check
-                            entry.OriginalValues.SetValues(databaseValues);
-                        }
-                        else
-                        {
-                            throw new NotSupportedException(
-                                "Don't know how to handle concurrency conflicts for "
-                                + entry.Metadata.Name);
-                        }
-                    }
-                }
-                _logger.LogInformation("\n\n\nok until here = save problem at database\n\n\n");
-
-
-                //generate a new used at wrapper and save it
-                var userAtWrapper = new UsedAtWrapper
-                {
-                    Name = deviceDity.UserName,
-                    DeviceId = MacDevice.DeviceId
-                };
-                MacDevice.AddClients(userAtWrapper);
-                await _db.SaveChangesAsync();
-
-                //generate a new signal history and save ir
-                var SignalHistory = new SinalHistory
-                {
-                    SinalRX = deviceDity.SinalRX,
-                    SinalTX = deviceDity.SinalTX,
-                    DeviceId = MacDevice.DeviceId
-                };
-                MacDevice.AddSinal(SignalHistory);
-                await _db.SaveChangesAsync();
-
-                return Ok(MacDevice);
-            }
-            catch (System.Exception ex)
-            {
-                _logger.LogError(ex, "Error at create new device");
-                return BadRequest(ex.Message);
-            }
-        }
-
         [HttpPost("/create_new_Device_with_DI")]
         public async Task<ActionResult<object>> CreateNewDeviceWithDI(
             [FromBody] FullDeviceCreate deviceDity
@@ -277,6 +155,7 @@ namespace Controller.DeviceActionsController
             {
                 if (deviceDity == null)
                 {
+                    _logger.LogWarning("\n\n\nReceived a null FullDeviceCreate object.");
                     return BadRequest("device cannot be null!");
                 }
 
@@ -289,24 +168,25 @@ namespace Controller.DeviceActionsController
                     return BadRequest("category not found!");
                 };
 
-
                 //create a new instance of device DI Database Tasroks
                 var DatabaseTaskNewDevice = _databaseTasks.CreateDevice(deviceDity);
                 await _db.Devices.AddAsync(DatabaseTaskNewDevice);
-                _logger.LogInformation("\n\n\nSaving new instance of device at database\n{}", deviceCategory.DeviceCategoryId);
 
+                _logger.LogInformation("\n\n\nSaving new instance of device at database\n{}", deviceCategory.DeviceCategoryId);
 
                 await _databaseTasks.CreateRelatedEntities(deviceDity, DatabaseTaskNewDevice);
 
-
-
-
                 return Ok(DatabaseTaskNewDevice);
             }
-            catch (System.Exception ex)
+            catch (InvalidOperationException ex)
             {
-                _logger.LogError(ex, "Error at create new device");
+                _logger.LogWarning(ex, "\n\n\nInvalid operation during device creation: {Message}", ex.Message);
                 return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "\n\n\nError occurred while creating a new device");
+                return StatusCode(500, "An unexpected error occurred.");
             }
         }
     }

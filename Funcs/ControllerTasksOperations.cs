@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 using DeviceContext;
 using MacSave.Funcs;
 using DeviceModel;
@@ -32,6 +35,15 @@ namespace MacSave.Funcs.Database
 
 		public DeviceCreate CreateDevice(FullDeviceCreate deviceDity)
 		{//must save at database at other component
+		 //handle behavior if some error ocurr
+
+			var checkMacAlreadyExists = _db.Devices.Where(d => d.Mac == deviceDity.Mac).Any();
+			if (checkMacAlreadyExists)
+			{
+				_logger.LogInformation("\n\n\nAttempted to create a device with an existing MAC: {Mac}", deviceDity.Mac);
+				throw new InvalidOperationException("\n\n\nMAC address already exists in the database.");
+			}
+
 			return new DeviceCreate
 			{
 				DeviceId = Guid.NewGuid().ToString(),
