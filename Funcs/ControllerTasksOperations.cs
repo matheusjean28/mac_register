@@ -6,6 +6,7 @@ using MacSave.Models.SinalHistory;
 using Microsoft.Extensions.Logging;
 using Model.ProblemTreatWrapper;
 using Models.UsedAtWrapper.UsedAtWrapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace MacSave.Funcs.Database
 {
@@ -30,7 +31,7 @@ namespace MacSave.Funcs.Database
 
 
 		public DeviceCreate CreateDevice(FullDeviceCreate deviceDity)
-		{
+		{//must save at database at other component
 			return new DeviceCreate
 			{
 				DeviceId = Guid.NewGuid().ToString(),
@@ -76,7 +77,6 @@ namespace MacSave.Funcs.Database
 
 			await _db.SaveChangesAsync();
 			_logger.LogInformation($"\n\n\n-----Save  item at databse-----\n\n\n");
-
 		}
 
 	}
