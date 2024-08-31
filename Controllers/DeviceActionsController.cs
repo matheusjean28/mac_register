@@ -295,10 +295,8 @@ namespace Controller.DeviceActionsController
                 await _db.Devices.AddAsync(DatabaseTaskNewDevice);
                 _logger.LogInformation("\n\n\nSaving new instance of device at database\n{}", deviceCategory.DeviceCategoryId);
 
-                //Device Create reference to DatabaseTasksCreateRelatedEntites
-                var deviceCreateReferente = new DeviceCreate { };
 
-                await _databaseTasks.CreateRelatedEntities(deviceDity, deviceCreateReferente);
+                await _databaseTasks.CreateRelatedEntities(deviceDity, DatabaseTaskNewDevice);
 
 
 
