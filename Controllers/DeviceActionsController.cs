@@ -215,6 +215,7 @@ namespace Controller.DeviceActionsController
                 }
 
                 _db.Devices.Remove(device);
+                await _db.SaveChangesAsync();
                 object responseOK =new  { Sucess= $"DeviceID: {deviceId}, deleted with sucess!$"};
             return Ok(responseOK);
             }
