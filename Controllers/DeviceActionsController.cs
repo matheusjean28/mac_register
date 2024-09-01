@@ -34,7 +34,8 @@ namespace Controller.DeviceActionsController
         }
 
 
-        [HttpGet("GetAllDevices")]
+        [HttpGet]
+        [Route("/GetAllDevices")]
         public async Task<ActionResult<IEnumerable<object>>> GetAllDevices()
         {
             try
@@ -82,7 +83,8 @@ namespace Controller.DeviceActionsController
 
 
         //this action get a param, clean it and fetch for that at database
-        [HttpGet("/SearchDevices/{paramDirty}")]
+        [HttpGet]
+        [Route("/SearchDevices/{paramDirty}")]
         public async Task<ActionResult<object>> SearchDevices(string paramDirty)
         {
             if (paramDirty == null || paramDirty.Length < 5)
@@ -143,7 +145,8 @@ namespace Controller.DeviceActionsController
         }
 
 
-        [HttpPost("/CreateNewDevice")]
+        [HttpPost]
+        [Route("/CreateNewDevice")]
         public async Task<ActionResult<object>> CreateNewDevice(
             [FromBody] FullDeviceCreate deviceDity
         )
@@ -200,12 +203,13 @@ namespace Controller.DeviceActionsController
 
         [HttpDelete]
         [Route("/DeleteDevice")]
-        public async Task<ActionResult> DeleteDevice(string deviceId)
+        public async Task<ActionResult> DeleteDevice(string deviceIdDirty)
         {
             try
             {
                 //next step, check if user that call delete have permission to delete
                 //if(user.permissionLeve == adm )...(action);
+                var deviceId = _regexService.SanitizeInput(deviceIdDirty);
 
                 //check if DeviceID is valid
                 var device = await _db.Devices.Where(d => d.DeviceId == deviceId).FirstOrDefaultAsync();

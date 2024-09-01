@@ -163,12 +163,12 @@ namespace MacSave.Controllers
 
         [HttpDelete]
         [Route("/DeleteCategory")]
-        public async Task<ActionResult> DeleteCategory(string CategoryId)
+        public async Task<ActionResult> DeleteCategory(string CategoryIdDirty)
         {
             try
             {//looking for user permission level, and check if he can delete category before do task
-
-                
+                var CategoryId = _regexService.SanitizeInput(CategoryIdDirty);
+                        
                 var category = await _db.DeviceCategories
                 .Where(d => d.DeviceCategoryId == CategoryId).FirstOrDefaultAsync();
 
