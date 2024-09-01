@@ -18,13 +18,14 @@ namespace Controller.DeviceActionsController
         private readonly DeviceDb _db;
         private readonly RegexService _regexService;
         private readonly DatabaseTasks _databaseTasks;
+        readonly bool _logStatus = true;
 
 
         public DeviceActionsController(
         DeviceDb db,
         RegexService regexService,
         ILogger<DeviceActionsController> logger,
-        DatabaseTasks databaseTasks )
+        DatabaseTasks databaseTasks)
         {
             _regexService = regexService;
             _db = db;
@@ -79,6 +80,8 @@ namespace Controller.DeviceActionsController
             }
         }
 
+
+        //this action get a param, clean it and fetch for that at database
         [HttpGet("/SearchDevices/{paramDirty}")]
         public async Task<ActionResult<object>> SearchDevices(string paramDirty)
         {
@@ -140,7 +143,7 @@ namespace Controller.DeviceActionsController
         }
 
 
-        [HttpPost("/create_new_device")]
+        [HttpPost("/CreateNewDevice")]
         public async Task<ActionResult<object>> CreateNewDevice(
             [FromBody] FullDeviceCreate deviceDity
         )
@@ -149,7 +152,10 @@ namespace Controller.DeviceActionsController
             {
                 if (deviceDity == null)
                 {
-                    _logger.LogWarning("Received a null FullDeviceCreate object.");
+                    if (_logStatus)
+                    {
+                        _logger.LogWarning("Received a null FullDeviceCreate object.");
+                    }
                     return BadRequest("device cannot be null!");
                 }
 
@@ -165,8 +171,10 @@ namespace Controller.DeviceActionsController
                 //create a new instance of device DI Database Tasroks
                 var DatabaseTaskNewDevice = _databaseTasks.CreateDevice(deviceDity);
                 await _db.Devices.AddAsync(DatabaseTaskNewDevice);
-
-                _logger.LogInformation("\n\n\nSaving new instance of device at database\n {}", deviceCategory.DeviceCategoryId);
+                if (_logStatus)
+                {
+                    _logger.LogInformation("\n\n\nSaving new instance of device at database\n {}", deviceCategory.DeviceCategoryId);
+                }
 
                 await _databaseTasks.CreateRelatedEntities(deviceDity, DatabaseTaskNewDevice);
 
@@ -174,14 +182,48 @@ namespace Controller.DeviceActionsController
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning(ex, "\n\n\nInvalid operation during device creation: {Message}", ex.Message);
+                if (_logStatus)
+                {
+                    _logger.LogWarning(ex, "\n\n\nInvalid operation during device creation: {Message}", ex.Message);
+                }
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "\n\n\nError occurred while creating a new device");
+                if (_logStatus)
+                {
+                    _logger.LogError(ex, "\n\n\nError occurred while creating a new device");
+                }
                 return StatusCode(500, "An unexpected error occurred.");
             }
         }
+
+        [HttpDelete]
+        [Route("/DeleteDevice")]
+        public async Task<ActionResult> DeleteDevice(string deviceId)
+        {
+            try
+            {
+                //next step, check if user that call delete have permission to delete
+                //if(user.permissionLeve == adm )...(action);
+
+                //check if DeviceID is valid
+                var device = await _db.Devices.Where(d => d.DeviceId == deviceId).FirstOrDefaultAsync();
+                if (device == null)
+                {
+                    return BadRequest("DeviceID not found!");
+                }
+
+                _db.Devices.Remove(device);
+                object responseOK =new  { Sucess= $"DeviceID: {deviceId}, deleted with sucess!$"};
+            return Ok(responseOK);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }
