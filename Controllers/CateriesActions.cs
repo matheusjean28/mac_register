@@ -5,6 +5,7 @@ using MacSave.Models.Categories.Models_of_Devices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MacSave.Models.FromBodyParamsDarty;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace MacSave.Controllers
@@ -57,16 +58,18 @@ namespace MacSave.Controllers
             try
             {
                 var allCategories = await _db.DeviceCategories.Include(d => d.Devices)
-                .Select(d => new {
+                .Select(d => new
+                {
                     d.DeviceCategoryId,
                     d.DeviceCategoryName,
                     d.OperationMode,
-                    Devices = d.Devices.Select(d => new{
-                    d.DeviceId,
-                    d.Mac,
-                    d.Model,
-                     d.RemoteAcess
-                    }) 
+                    Devices = d.Devices.Select(d => new
+                    {
+                        d.DeviceId,
+                        d.Mac,
+                        d.Model,
+                        d.RemoteAcess
+                    })
                 })
                 .ToListAsync();
                 return Ok(allCategories);
@@ -114,6 +117,7 @@ namespace MacSave.Controllers
         public async Task<ActionResult<DeviceCategory>> CreateCategory(
             [FromBody] CreateCategoryDarty category
         )
+
         {
             try
             {
@@ -157,6 +161,32 @@ namespace MacSave.Controllers
             }
         }
 
-        
+        [HttpDelete]
+        [Route("/DeleteCategory")]
+        public async Task<ActionResult> DeleteCategory(string CategoryId)
+        {
+            try
+            {//looking for user permission level, and check if he can delete category before do task
+
+                
+                var category = await _db.DeviceCategories
+                .Where(d => d.DeviceCategoryId == CategoryId).FirstOrDefaultAsync();
+
+                if (category == null)
+                {
+                    return BadRequest("Category not Found!");
+                }
+
+                _db.DeviceCategories.Remove(category);
+                await _db.SaveChangesAsync();
+
+                object responseOK = new { Sucess = $"DeviceID: {CategoryId}, deleted with sucess!$" };
+                return Ok(responseOK);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

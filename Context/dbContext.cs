@@ -35,18 +35,21 @@ namespace DeviceContext
             .HasMany(e => e.Problems)
             .WithOne(e => e.DeviceCreate)
             .HasForeignKey(e => e.DeviceId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
             modelBuilder.Entity<DeviceCreate>()
              .HasMany(e => e.UsedAtClients)
             .WithOne(e => e.DeviceCreate)
             .HasForeignKey(e => e.DeviceId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
             modelBuilder.Entity<DeviceCreate>()
             .HasMany(e => e.SinalHistory)
             .WithOne(e => e.DeviceCreate)
             .HasForeignKey(e => e.DeviceId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
              modelBuilder.Entity<Maker>()
@@ -58,7 +61,7 @@ namespace DeviceContext
             .WithOne(e => e.DeviceCategory)
             .HasForeignKey(e => e.DeviceCategoryId)
             .IsRequired();
-
+            
             // modelBuilder.Entity<Maker>()
             // .HasMany(m => m.DeviceCategories)
             // .WithOne(m => m.Maker)
