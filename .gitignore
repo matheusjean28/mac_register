@@ -43,3 +43,8 @@ msbuild.err
 msbuild.wrn
 UploadedFile/
 Temp/Error.csv
+# Bancos de dados locais
+*.db
+*.db-shm
+*.db-wal
+*.sqlite

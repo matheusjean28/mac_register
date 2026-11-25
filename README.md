@@ -35,7 +35,9 @@ Requer o SDK do .NET 7.
 ```bash
 git clone https://github.com/matheusjean28/mac_register.git
 cd mac_register
-dotnet restore
+dotnet tool install --global dotnet-ef --version "7.*"
+dotnet ef database update --context DeviceDb
+dotnet ef database update --context MainDatabase
 dotnet run
 ```
 
@@ -49,4 +51,3 @@ Versão pública inicial. A importação de CSV está desativada no código atua
 - [ ] Corrigir a busca, que hoje exige o termo no modelo **e** no MAC
 - [ ] Adicionar autenticação
 - [ ] Adicionar testes
-- [ ] Remover os bancos `.db` do versionamento
